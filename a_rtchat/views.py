@@ -25,6 +25,9 @@ def chat_view(request, chatroom_name='public-chat'):
                 other_user = member
                 break
 
+    private_chats = request.user.chat_groups.filter(is_private=True)
+    group_chats = request.user.chat_groups.filter(is_private=False)
+
     if chat_group.groupchat_name:
         if request.user not in chat_group.members.all():
             if request.user.emailaddress_set.filter(verified=True).exists():
@@ -48,11 +51,13 @@ def chat_view(request, chatroom_name='public-chat'):
             return render(request, 'a_rtchat/partials/chat_message_p.html', context)
         
     context = {
-        'chat_messages' : chat_messages, 
-        'form' : form,
-        'other_user' : other_user,
-        'chatroom_name' : chatroom_name,
-        'chat_group' : chat_group
+        'chat_messages': chat_messages,
+        'form': form,
+        'other_user': other_user,
+        'chatroom_name': chatroom_name,
+        'chat_group': chat_group,
+        'private_chats': private_chats,
+        'group_chats': group_chats
     }
  
     return render(request, 'a_rtchat/chat.html', context)
@@ -81,21 +86,18 @@ def get_or_create_chatroom(request, username):
 
 @login_required
 def create_groupchat(request):
-    form = NewGroupForm()
-
     if request.method == 'POST':
         form = NewGroupForm(request.POST)
         if form.is_valid():
-            new_groupchat = form.save(commit=False)
-            new_groupchat.admin = request.user
-            new_groupchat.save()
-            new_groupchat.members.add(request.user)
-            return redirect('chatroom', new_groupchat.group_name)
-
-    context = {
-        'form': form
-    }
-    return render(request, 'a_rtchat/create_groupchat.html', context)
+            chat_group = form.save(commit=False)
+            chat_group.admin = request.user
+            chat_group.save()
+            chat_group.members.add(request.user)
+            messages.success(request, 'Chat group created successfully')
+            return redirect('chatroom', chat_group.group_name)
+    else:
+        form = NewGroupForm()
+    return render(request, 'a_rtchat/create_groupchat.html', {'form': form})
 
 
 @login_required
@@ -159,3 +161,22 @@ def chat_file_upload(request, chatroom_name):
             chatroom_name, event
         )
     return HttpResponse()
+
+@login_required
+def manage_chat_members(request, chatroom_name):
+    chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
+    if request.user != chat_group.admin:
+        raise Http404()
+        
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        action = request.POST.get('action')
+        
+        if user_id and action:
+            user = get_object_or_404(User, id=user_id)
+            if action == 'add':
+                chat_group.members.add(user)
+            elif action == 'remove':
+                chat_group.members.remove(user)
+                
+    return redirect('chatroom', chatroom_name)

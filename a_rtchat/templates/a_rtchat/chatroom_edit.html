@@ -1,37 +1,58 @@
 {% extends 'layouts/box.html' %}
 
-{% block content %} 
-
-<h1>Edit Chat</h1>
+{% block content %}
+<h1>Manage Chat Room</h1>
 
 <form method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
 
     <div class="my-4">
-    <h2>Members</h2>
-    {% for member in chat_group.members.all %}
-    <div class="flex justify-between items-center">
-        <div class="flex items-center gap-2 py-2">
-            <img class="w-14 h-14 rounded-full object-cover" src="{{ member.profile.avatar }}" />
-            <div>
-                <span class="font-bold">{{ member.profile.name }}</span> 
-                <span class="text-sm font-light text-gray-600">@{{ member.username }}</span>
+        <h2>Current Members</h2>
+        {% for member in chat_group.members.all %}
+        <div class="flex items-center justify-between py-2">
+            <div class="flex items-center gap-2">
+                <img src="{{ member.profile.avatar }}" class="w-10 h-10 rounded-full">
+                <span>{{ member.profile.displayname }}</span>
             </div>
+            {% if member != chat_group.admin %}
+            <button type="submit" name="action" value="remove" 
+                    class="text-red-500 hover:text-red-700"
+                    onclick="return confirm('Remove this member?');">
+                Remove
+            </button>
+            {% endif %}
         </div>
-        
-        {% if member != chat_group.admin %}
-        <div class="inline-block pr-4">
-            <input type="checkbox" name="remove_members" value="{{ member.id }}" class="relative p-5 cursor-pointer appearance-none rounded-md border after:absolute after:left-0 after:top-0 after:h-full after:w-full after:bg-[url('https://img.icons8.com/ffffff/32/multiply.png')] after:bg-center checked:bg-red-500 hover:ring hover:ring-gray-300 focus:outline-none" />
-        </div>
-        {% endif %}
-    </div> 
-    {% endfor %}
+        {% endfor %}
     </div>
 
-    <button class="mt-2" type="submit">Update</button>
+    <div class="my-4">
+        <h2>Add New Members</h2>
+        <select name="new_member" class="w-full p-2 border rounded">
+            {% for user in available_users %}
+            <option value="{{ user.id }}">{{ user.profile.displayname }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" name="action" value="add" class="mt-2">
+            Add Member
+        </button>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+            Save Changes
+        </button>
+    </div>
 </form>
 
-<a href="{% url 'chatroom-delete' chat_group.group_name %}" class="flex justify-end mt-4 text-gray-400 hover:text-red-500" >Delete Chatroom</a>
-
+{% if request.user == chat_group.admin %}
+<div class="mt-8">
+    <h2>Danger Zone</h2>
+    <a href="{% url 'chatroom-delete' chat_group.group_name %}" 
+       class="text-red-500 hover:text-red-700"
+       onclick="return confirm('Are you sure you want to delete this chat room?');">
+        Delete Chat Room
+    </a>
+</div>
+{% endif %}
 {% endblock %}

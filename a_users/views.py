@@ -91,3 +91,16 @@ def profile_delete_view(request):
         return redirect('home')
     
     return render(request, 'a_users/profile_delete.html')
+
+
+@login_required
+def user_management_view(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=request.user.profile)
+    return render(request, 'a_users/profile_edit.html', {'form': form})
