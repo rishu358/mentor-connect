@@ -2,156 +2,155 @@
 
 {% block content %}
 <div class="flex">
+    <!-- Left Sidebar (keeping it unchanged) -->
+    <div class="w-64 bg-gray-900 h-screen fixed left-0 overflow-y-auto">
+        <!-- Sidebar content remains the same -->
+        <div class="p-4">
+            <h3 class="text-white font-bold mb-4">Your Chats</h3>
+            
+            <!-- Private Chats -->
+            <div class="mb-6">
+                <h4 class="text-gray-400 text-sm mb-2">Private Messages</h4>
+                <ul class="space-y-2">
+                    {% for group in user.chat_groups.all %}
+                        {% if group.is_private %}
+                            {% for member in group.members.all %}
+                                {% if member != user %}
+                                <li>
+                                    <a href="{% url 'chatroom' group.group_name %}" 
+                                       class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
+                                        <img src="{{ member.profile.avatar }}" class="w-8 h-8 rounded-full">
+                                        <span>{{ member.profile.displayname }}</span>
+                                        {% if member in group.users_online.all %}
+                                            <div class="green-dot ml-auto"></div>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
 
-<!-- New Left Sidebar -->
-<div class="w-64 bg-gray-900 h-screen fixed left-0 overflow-y-auto">
-    <div class="p-4">
-        <h3 class="text-white font-bold mb-4">Your Chats</h3>
-        
-        <!-- Private Chats -->
-        <div class="mb-6">
-            <h4 class="text-gray-400 text-sm mb-2">Private Messages</h4>
-            <ul class="space-y-2">
-                {% for group in user.chat_groups.all %}
-                    {% if group.is_private %}
-                        {% for member in group.members.all %}
-                            {% if member != user %}
+            <!-- Group Chats -->
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <h4 class="text-gray-400 text-sm">Group Chats</h4>
+                    <a href="{% url 'new-groupchat' %}" class="text-blue-500 hover:text-blue-400 text-sm">+ New</a>
+                </div>
+                <ul class="space-y-2">
+                    {% for group in user.chat_groups.all %}
+                        {% if not group.is_private %}
                             <li>
                                 <a href="{% url 'chatroom' group.group_name %}" 
-                                   class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
-                                    <img src="{{ member.profile.avatar }}" class="w-8 h-8 rounded-full">
-                                    <span>{{ member.profile.displayname }}</span>
-                                    {% if member in group.users_online.all %}
-                                        <div class="green-dot ml-auto"></div>
-                                    {% endif %}
+                                   class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded {% if group == chat_group %}bg-gray-800{% endif %}">
+                                    <span class="truncate">{{ group.groupchat_name }}</span>
+                                    <span class="text-gray-500 text-xs ml-auto">{{ group.members.count }} members</span>
                                 </a>
                             </li>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-
-        <!-- Group Chats -->
-        <div>
-            <div class="flex justify-between items-center mb-2">
-                <h4 class="text-gray-400 text-sm">Group Chats</h4>
-                <a href="{% url 'new-groupchat' %}" class="text-blue-500 hover:text-blue-400 text-sm">+ New</a>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
             </div>
-            <ul class="space-y-2">
-                {% for group in user.chat_groups.all %}
-                    {% if not group.is_private %}
+        </div>
+    </div>
+
+    <div class="ml-64 flex-1">
+        <wrapper class="block max-w-2xl mx-auto my-10 px-6">
+            <div id="chat_window" class="h-[45rem] flex flex-col bg-gray-800 rounded-2xl shadow-2xl relative p-1">
+                {% if chat_group.groupchat_name %}
+                <div class="flex justify-between items-center bg-gray-800 p-4 sticky top-0 z-10 border-b border-gray-700">
+                    <!-- Left side: Group name and edit button -->
+                    <div class="flex items-center gap-4">
+                        <h2 class="text-xl text-white font-bold">{{ chat_group.groupchat_name }}</h2>
+                        {% if user == chat_group.admin %}
+                        <a href="{% url 'edit-chatroom' chat_group.group_name %}" 
+                           class="p-2 bg-gray-700 hover:bg-blue-600 rounded-lg group transition-colors">
+                            <svg class="fill-gray-400 group-hover:fill-white" width="16" height="16">
+                                <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"></path>
+                            </svg>
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <!-- Right side: Member cards -->
+                    <ul id="groupchat-members" class="flex gap-4">
+                        {% for member in chat_group.members.all %}
                         <li>
-                            <a href="{% url 'chatroom' group.group_name %}" 
-                               class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded {% if group == chat_group %}bg-gray-800{% endif %}">
-                                <span class="truncate">{{ group.groupchat_name }}</span>
-                                <span class="text-gray-500 text-xs ml-auto">{{ group.members.count }} members</span>
+                            <a href="{% url 'profile' member.username %}" class="flex flex-col text-gray-400 items-center justify-center w-20 gap-2">
+                                <img src="{{ member.profile.avatar }}" class="w-14 h-14 rounded-full object-cover" />
+                                {{ member.profile.name|slice:":10" }}
                             </a>
                         </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</div>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% elif other_user %}
+                <div class="flex justify-center text-emerald-400 bg-gray-800 p-2 sticky top-0 z-10">
+                    <div id="online-icon" class="gray-dot absolute top-2 left-2"></div>
+                    <a href="{% url 'profile' other_user.username %}">
+                        <div class="flex items-center gap-2 p-4">
+                            <img class="w-10 h-10 rounded-full object-cover" src="{{ other_user.profile.avatar }}" />
+                            <div>
+                                <span class="font-bold text-white">{{ other_user.profile.name }}</span> 
+                                <span class="text-sm font-light text-gray-400">@{{ other_user.username }}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% else %}
+                <div class="flex justify-center text-emerald-400 bg-gray-800 p-2 sticky top-0 z-10">
+                    <div id="online-icon"></div>
+                    <span id="online-count" class="pr-1"></span>online
+                </div>
+                {% endif %}
 
+                <!-- Chat Messages Container -->
+                <div id='chat_container' class="overflow-y-auto grow">
+                    <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
+                        {% for message in chat_messages reversed %}
+                        {% include 'a_rtchat/chat_message.html' %}
+                        {% endfor %}
+                    </ul>
+                </div>
 
-<div class="ml-64 flex-1">
-<wrapper class="block max-w-2xl mx-auto my-10 px-6">
-    {% if chat_group.groupchat_name %}
-    <div class="flex justify-between">
-    <h2>{{ chat_group.groupchat_name }}</h2>
-    {% if user == chat_group.admin %}
-    <a href="{% url 'edit-chatroom' chat_group.group_name %}">
-        <div class="p-2 bg-gray-200 hover:bg-blue-600 rounded-lg group">
-            <svg class="fill-gray-500 group-hover:fill-white" width="16" height="16">
-                <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"></path>
-            </svg>
-        </div>
-    </a>
-    {% endif %}
-    </div>
-    {% endif %}
-    <div id="chat_window" class="h-[45rem] flex flex-col bg-gray-800 rounded-2xl shadow-2xl relative p-1">
-        <div class="flex justify-center text-emerald-400 bg-gray-800 p-2 sticky top-0 z-10">
-            {% if other_user %}
-            <div id="online-icon" class="gray-dot absolute top-2 left-2"></div>
-            <a href="{% url 'profile' other_user.username %}">
-                <div class="flex items-center gap-2 p-4 sticky top-0 z-10">
-                    <img class="w-10 h-10 rounded-full object-cover" src="{{ other_user.profile.avatar }}" />
-                    <div>
-                        <span class="font-bold text-white">{{ other_user.profile.name }}</span> 
-                        <span class="text-sm font-light text-gray-400">@{{ other_user.username }}</span>
+                <!-- Chat Input Area -->
+                <div class="sticky bottom-0 z-10 p-2 bg-gray-800">
+                    <div class="flex flex-col gap-4 items-center rounded-xl px-2 py-2">
+                        <form id="chat_message_form" class="w-full"
+                            hx-ext="ws"
+                            ws-connect="/ws/chatroom/{{ chatroom_name }}"
+                            ws-send 
+                            _="on htmx:wsAfterSend reset() me">
+                            {% csrf_token %}
+                            {{ form }}
+                        </form>
+                        <form id="chat_file_form" enctype="multipart/form-data" class="flex items-center w-full" 
+                            hx-post="{% url 'chat-file-upload' chat_group.group_name %}"
+                            hx-target="#chat_messages"
+                            hx-swap="beforeend" 
+                            _="on htmx:beforeSend reset() me">
+                            {% csrf_token %}
+                            <input type="file" name="file" id="id_file" class="!bg-transparent text-gray-400">
+                            <button type="submit" class="whitespace-nowrap !text-sm !py-3 !px-4 h-fit">Submit File</button>
+                        </form>
                     </div>
                 </div>
-            </a>
-
-            {% elif chat_group.groupchat_name %}
-            <ul id="groupchat-members" class="flex gap-4">
-                {% for member in chat_group.members.all %}
-                <li>
-                    <a href="{% url 'profile' member.username %}" class="flex flex-col text-gray-400 items-center justify-center w-20 gap-2">
-                        <img src="{{ member.profile.avatar }}" class="w-14 h-14 rounded-full object-cover" />
-                        {{ member.profile.name|slice:":10" }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-
-            {% else %}
-            <div id="online-icon"></div>
-            <span id="online-count" class="pr-1"></span>online
-            {% endif %}
-        </div>
-        <div id='chat_container' class="overflow-y-auto grow">
-            <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
-                {% for message in chat_messages reversed %}
-                {% include 'a_rtchat/chat_message.html' %}
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="sticky bottom-0 z-10 p-2 bg-gray-800">
-            <div class="flex flex-col gap-4 items-center rounded-xl px-2 py-2">
-                <form id="chat_message_form" class="w-full"
-                    hx-ext="ws"
-                    ws-connect="/ws/chatroom/{{ chatroom_name }}"
-                    ws-send 
-                    _="on htmx:wsAfterSend reset() me">
-                    {% csrf_token %}
-                    {{ form }}
-                </form>
-                <form id="chat_file_form" enctype="multipart/form-data" class="flex items-center w-full" 
-                    hx-post="{% url 'chat-file-upload' chat_group.group_name %}"
-                    hx-target="#chat_messages"
-                    hx-swap="beforeend" 
-                    _="on htmx:beforeSend reset() me" >
-                    {% csrf_token %}
-                    <input type="file" name="file" id="id_file" class="!bg-transparent text-gray-400">
-                    <button type="submit" class="whitespace-nowrap !text-sm !py-3 !px-4 h-fit">Submit File</button>
-                </form>
-
             </div>
-        </div>
+        </wrapper>
     </div>
-    
-</wrapper>
-
 </div>
-</div>
-
 {% endblock %}
 
 {% block javascript %}
 <script>
-
     function scrollToBottom(time=0) {
         setTimeout(function() {
             const container = document.getElementById('chat_container');
             container.scrollTop = container.scrollHeight;
         }, time);
     }
-    scrollToBottom()
-
+    scrollToBottom();
 </script>
 {% endblock %}
