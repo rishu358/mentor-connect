@@ -1,7 +1,7 @@
 {% extends 'layouts/blank.html' %}
 
 {% block content %}
-<div class="flex">
+<div class="flex h-screen overflow-hidden">
     <!-- Left Sidebar -->
     <div class="w-64 bg-gray-900 h-screen fixed left-0 overflow-y-auto">
         <div class="p-4">
@@ -56,149 +56,85 @@
     </div>
 
     <!-- Main Chat Area -->
-    <div class="ml-64 flex-1">
-        <wrapper class="block max-w-2xl mx-auto my-10 px-6">
-            <div id="chat_window" class="h-[45rem] flex flex-col bg-gray-800 rounded-2xl shadow-2xl relative p-1">
-                <!-- Chat Header -->
-                {% if chat_group.is_private %}
-                    {% for member in chat_group.members.all %}
-                        {% if member != user %}
-                        <div class="flex justify-between items-center bg-gray-800 p-4 sticky top-0 z-10 border-b border-gray-700">
-                            <div class="flex items-center gap-3">
-                                <img src="{{ member.profile.avatar }}" class="w-10 h-10 rounded-full">
-                                <div>
-                                    <h2 class="text-xl text-white font-bold">{{ member.profile.displayname }}</h2>
-                                    <span class="text-gray-400 text-sm">@{{ member.username }}</span>
-                                </div>
-                                {% if member in chat_group.users_online.all %}
-                                    <div class="green-dot"></div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    <div class="flex justify-between items-center bg-gray-800 p-4 sticky top-0 z-10 border-b border-gray-700">
-                        <div class="flex items-center gap-4">
-                            <h2 class="text-xl text-white font-bold">{{ chat_group.groupchat_name }}</h2>
-                            {% if user == chat_group.admin %}
-                            <a href="{% url 'edit-chatroom' chat_group.group_name %}" 
-                               class="p-2 bg-gray-700 hover:bg-blue-600 rounded-lg group transition-colors">
-                                <svg class="fill-gray-400 group-hover:fill-white" width="16" height="16">
-                                    <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"></path>
-                                </svg>
-                            </a>
-                            {% endif %}
-                        </div>
+    <div class="ml-64 flex-1 flex flex-col h-screen bg-gray-800">
+        <!-- Chat Header -->
+        {% if chat_group.groupchat_name %}
+        <div class="flex justify-between items-center p-4 border-b border-gray-700">
+            <h2 class="text-xl text-white font-bold">{{ chat_group.groupchat_name }}</h2>
+            {% if user == chat_group.admin %}
+            <a href="{% url 'edit-chatroom' chat_group.group_name %}" 
+               class="p-2 bg-gray-700 hover:bg-blue-600 rounded-lg group transition-colors">
+                <svg class="fill-gray-400 group-hover:fill-white" width="16" height="16">
+                    <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"></path>
+                </svg>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
 
-                        <!-- Member List -->
-                        <ul id="groupchat-members" class="flex gap-4">
-                            {% for member in chat_group.members.all %}
-                            <li>
-                                <a href="{% url 'profile' member.username %}" class="flex flex-col text-gray-400 items-center justify-center w-20 gap-2">
-                                    <div class="relative">
-                                        {% if member in chat_group.users_online.all %}
-                                        <div class="green-dot border-2 border-gray-800 absolute bottom-0 right-0"></div>
-                                        {% else %}
-                                        <div class="gray-dot border-2 border-gray-800 absolute bottom-0 right-0"></div>
-                                        {% endif %}
-                                        <img src="{{ member.profile.avatar }}" class="w-14 h-14 rounded-full object-cover" />
-                                    </div>
-                                    {{ member.profile.name|slice:":10" }}
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-
-                <!-- Chat Messages Container -->
-                <div id='chat_container' class="overflow-y-auto grow">
-                    <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
-                        {% for message in chat_messages reversed %}
-                        {% include 'a_rtchat/chat_message.html' %}
-                        {% endfor %}
-                    </ul>
-                </div>
-
-                <!-- Chat Input Area -->
-                <div class="sticky bottom-0 z-10 p-2 bg-gray-800">
-                    <div class="flex items-center gap-2 rounded-xl px-2 py-2">
-                        <!-- Message Form -->
-                        <form id="chat_message_form" class="flex-1"
-                            hx-ext="ws"
-                            ws-connect="/ws/chatroom/{{ chatroom_name }}"
-                            ws-send 
-                            _="on htmx:wsAfterSend reset() me">
-                            {% csrf_token %}
-                            {{ form }}
-                        </form>
-                        
-                        <!-- File Upload Form -->
-                        <form id="chat_file_form" 
-                              class="flex items-center" 
-                              hx-post="{% url 'chat-file-upload' chat_group.group_name %}"
-                              hx-target="#chat_messages"
-                              hx-swap="beforeend" 
-                              enctype="multipart/form-data"
-                              _="on htmx:beforeSend reset() me">
-                            {% csrf_token %}
-                            <div class="relative flex items-center gap-2">
-                                <input type="file" 
-                                       name="file" 
-                                       id="id_file" 
-                                       class="hidden"
-                                       accept="image/*,.pdf,.doc,.docx,.txt">
-                                
-                                <label for="id_file" 
-                                       class="p-2 hover:bg-gray-700 rounded-lg cursor-pointer transition-colors inline-flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                              d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
-                                        </path>
-                                    </svg>
-                                </label>
-                            </div>
-                        </form>
+        <!-- Online Users Bar -->
+        <div class="flex justify-center text-emerald-400 p-2 border-b border-gray-700">
+            {% if other_user %}
+            <div id="online-icon" class="gray-dot absolute top-2 left-2"></div>
+            <a href="{% url 'profile' other_user.username %}">
+                <div class="flex items-center gap-2">
+                    <img class="w-10 h-10 rounded-full object-cover" src="{{ other_user.profile.avatar }}" />
+                    <div>
+                        <span class="font-bold text-white">{{ other_user.profile.name }}</span> 
+                        <span class="text-sm font-light text-gray-400">@{{ other_user.username }}</span>
                     </div>
                 </div>
+            </a>
+            {% elif chat_group.groupchat_name %}
+            <ul id="groupchat-members" class="flex gap-4">
+                {% for member in chat_group.members.all %}
+                <li>
+                    <a href="{% url 'profile' member.username %}" class="flex flex-col text-gray-400 items-center justify-center w-20 gap-2">
+                        <img src="{{ member.profile.avatar }}" class="w-14 h-14 rounded-full object-cover" />
+                        {{ member.profile.name|slice:":10" }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div id="online-icon"></div>
+            <span id="online-count" class="pr-1"></span>online
+            {% endif %}
+        </div>
+
+        <!-- Chat Messages Container -->
+        <div id="chat_container" class="flex-1 overflow-y-auto">
+            <ul id="chat_messages" class="flex flex-col gap-2 p-4">
+                {% for message in chat_messages reversed %}
+                {% include 'a_rtchat/chat_message.html' %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Chat Input Area -->
+        <div class="p-4 border-t border-gray-700">
+            <div class="flex flex-col gap-4">
+                <form id="chat_message_form" class="w-full"
+                    hx-ext="ws"
+                    ws-connect="/ws/chatroom/{{ chatroom_name }}"
+                    ws-send 
+                    _="on htmx:wsAfterSend reset() me">
+                    {% csrf_token %}
+                    {{ form }}
+                </form>
+                <form id="chat_file_form" enctype="multipart/form-data" class="flex items-center w-full" 
+                    hx-post="{% url 'chat-file-upload' chat_group.group_name %}"
+                    hx-target="#chat_messages"
+                    hx-swap="beforeend" 
+                    _="on htmx:beforeSend reset() me">
+                    {% csrf_token %}
+                    <input type="file" name="file" id="id_file" class="!bg-transparent text-gray-400">
+                    <button type="submit" class="whitespace-nowrap !text-sm !py-3 !px-4 h-fit">Submit File</button>
+                </form>
             </div>
-        </wrapper>
+        </div>
     </div>
 </div>
-
-<style>
-    .green-dot {
-        width: 8px;
-        height: 8px;
-        background-color: #10B981;
-        border-radius: 50%;
-    }
-
-    .gray-dot {
-        width: 8px;
-        height: 8px;
-        background-color: #6B7280;
-        border-radius: 50%;
-    }
-
-    #chat_message_form input {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border-radius: 0.5rem;
-        background-color: rgb(55, 65, 81);
-        color: white;
-        outline: none;
-        border: 1px solid transparent;
-        transition: all 0.2s;
-    }
-
-    #chat_message_form input:focus {
-        border-color: rgb(37, 99, 235);
-        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
-    }
-</style>
-
 {% endblock %}
 
 {% block javascript %}
