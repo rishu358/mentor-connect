@@ -43,7 +43,6 @@ def profile_edit_view(request):
       
     return render(request, 'a_users/profile_edit.html', { 'form':form, 'onboarding':onboarding })
 
-
 @login_required
 def profile_settings_view(request):
     return render(request, 'a_users/profile_settings.html')
@@ -131,6 +130,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import MentorRegistrationForm, MenteeRegistrationForm
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import MentorRegistrationForm, MenteeRegistrationForm
+
 def register_mentor(request):
     if request.method == 'POST':
         form = MentorRegistrationForm(request.POST)
@@ -140,8 +143,8 @@ def register_mentor(request):
             return redirect('profile-onboarding')
     else:
         form = MentorRegistrationForm()
-    return render(request, 'a_users/signup.html', {
-        'user_form': form,
+    return render(request, 'account/signup.html', {
+        'form': form,
         'user_type': 'Mentor'
     })
 
@@ -154,7 +157,7 @@ def register_mentee(request):
             return redirect('profile-onboarding')
     else:
         form = MenteeRegistrationForm()
-    return render(request, 'a_users/signup.html', {
-        'user_form': form,
+    return render(request, 'account/signup.html', {
+        'form': form,
         'user_type': 'Mentee'
     })

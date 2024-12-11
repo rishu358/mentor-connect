@@ -19,17 +19,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from a_home.views import home_view
 from a_users.views import profile_view
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('', include('a_home.urls')),
+    path('', home_view, name='home'),
     path('chat/', include('a_rtchat.urls')),
-    # Include all a_users URLs
-    path('profile/', include('a_users.urls')),
-    # This should come after the include() of a_users.urls
-    path('@<username>/', profile_view, name="profile"),
+    path('profile/', include('a_users.urls')),  # This should include all a_users URLs
 ]
 
 if settings.DEBUG:

@@ -85,6 +85,12 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
+from django.forms import ModelForm
+from django import forms
+from django.contrib.auth.models import User
+from .models import Profile
+from django.contrib.auth.forms import UserCreationForm
+
 class MentorRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     
@@ -94,14 +100,15 @@ class MentorRegistrationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
         if commit:
             user.save()
-            Profile.objects.create(
+            # Create profile after user is saved
+            Profile.objects.get_or_create(
                 user=user,
-                user_type='MENTOR'
+                defaults={'user_type': 'MENTOR'}
             )
         return user
-    
 
 class MenteeRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -112,11 +119,13 @@ class MenteeRegistrationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
         if commit:
             user.save()
-            Profile.objects.create(
+            # Create profile after user is saved
+            Profile.objects.get_or_create(
                 user=user,
-                user_type='MENTEE'
+                defaults={'user_type': 'MENTEE'}
             )
         return user
 
