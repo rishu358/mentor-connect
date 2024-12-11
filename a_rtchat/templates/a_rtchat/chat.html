@@ -168,119 +168,11 @@
         </div>
     </div>
 </div>
-
-<script>
-let jitsiApi = null;
-
-function startVideoCall() {
-    const domain = 'meet.jit.si';
-    const container = document.querySelector('#jitsi-container');
-    const meetDiv = document.querySelector('#meet');
-    
-    // Show the container
-    container.classList.remove('hidden');
-    
-    const options = {
-        roomName: '{{ chat_group.group_name }}',
-        width: '100%',
-        height: '100%',
-        parentNode: meetDiv,
-        userInfo: {
-            displayName: '{{ request.user.profile.displayname }}',
-            email: '{{ request.user.email }}'
-        },
-        configOverwrite: {
-            prejoinPageEnabled: false,
-            startWithAudioMuted: true,
-            startWithVideoMuted: true,
-            // Add these settings to disable security features
-            security: {
-                enableLobby: false,
-                requireModeration: false
-            },
-            // Allow anonymous access
-            disableModeratorIndicator: true,
-            enableLobbyChat: false,
-            enableClosePage: true,
-            disableDeepLinking: true,
-            // Disable authentication
-            enableAuth: false,
-            enableAuthTokenCreation: false
-        },
-        interfaceConfigOverwrite: {
-            TOOLBAR_BUTTONS: [
-                'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
-                'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
-                'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
-                'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
-                'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone',
-                'security'
-            ],
-            SHOW_JITSI_WATERMARK: false,
-            SHOW_WATERMARK_FOR_GUESTS: false,
-            // Disable lobby-related features
-            ENABLE_LOBBY: false,
-            DISABLE_JOIN_LEAVE_NOTIFICATIONS: true
-        }
-    };
-
-    // Initialize Jitsi Meet
-    jitsiApi = new JitsiMeetExternalAPI(domain, options);
-
-    // Remove the admin-specific code that was enabling the lobby
-    // {% if request.user == chat_group.admin %}
-    // jitsiApi.executeCommand('toggleLobby', true);
-    // jitsiApi.addEventListener('participantRoleChanged', function(event) {
-    //     if (event.role === 'moderator') {
-    //         jitsiApi.executeCommand('password', '{{ chat_group.group_name }}');
-    //     }
-    // });
-    // {% endif %}
-
-    // Handle participant joined event
-    jitsiApi.addEventListener('participantJoined', function(event) {
-        console.log('Participant joined:', event);
-    });
-
-    // Handle participant left event
-    jitsiApi.addEventListener('participantLeft', function(event) {
-        console.log('Participant left:', event);
-    });
-}
-
-function closeVideoCall() {
-    if (jitsiApi) {
-        jitsiApi.dispose();
-        jitsiApi = null;
-    }
-    document.querySelector('#jitsi-container').classList.add('hidden');
-}
-</script>
-
-<style>
-#jitsi-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-}
-
-#meet {
-    width: 100%;
-    height: 100%;
-    background: #000;
-}
-
-.hidden {
-    display: none;
-}
-</style>
 {% endblock %}
 
 {% block javascript %}
 <script>
+    // Scroll function
     function scrollToBottom(time=0) {
         setTimeout(function() {
             const container = document.getElementById('chat_container');
@@ -289,6 +181,7 @@ function closeVideoCall() {
     }
     scrollToBottom();
 </script>
+
 <script src='https://meet.jit.si/external_api.js'></script>
 <script>
 let jitsiApi = null;
@@ -312,17 +205,32 @@ function startVideoCall() {
         },
         configOverwrite: {
             prejoinPageEnabled: false,
-            startWithAudioMuted: true,
-            startWithVideoMuted: true,
+            startWithAudioMuted: false,  // Changed to false for better initial experience
+            startWithVideoMuted: false,  // Changed to false for better initial experience
             disableModeratorIndicator: true,
             enableLobby: false,
             enableClosePage: false,
             enableAuth: false,
             disableDeepLinking: true,
             disableInviteFunctions: true,
-            remoteVideoMenu: {
-                disableKick: true,
-                disableGrantModerator: true
+            // Add connection stability settings
+            p2p: {
+                enabled: true,
+                preferH264: true
+            },
+            // Add reconnect settings
+            enableNoAudioDetection: false,
+            enableNoisyMicDetection: false,
+            // Add connection optimization
+            resolution: 720,
+            constraints: {
+                video: {
+                    height: {
+                        ideal: 720,
+                        max: 720,
+                        min: 180
+                    }
+                }
             }
         },
         interfaceConfigOverwrite: {
@@ -333,32 +241,51 @@ function startVideoCall() {
                 'filmstrip', 'tileview'
             ],
             SHOW_JITSI_WATERMARK: false,
-            SHOW_WATERMARK_FOR_GUESTS: false,
-            SHOW_PROMOTIONAL_CLOSE_PAGE: false,
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
-            HIDE_INVITE_MORE_HEADER: true,
             MOBILE_APP_PROMO: false,
-            ENABLE_LOBBY: false,
-            SETTINGS_SECTIONS: ['devices', 'language', 'moderator'],
+            SETTINGS_SECTIONS: ['devices', 'language'],
             DEFAULT_REMOTE_DISPLAY_NAME: 'Participant'
         }
     };
 
-    // Initialize Jitsi Meet
-    jitsiApi = new JitsiMeetExternalAPI(domain, options);
+    try {
+        // Dispose of any existing instance
+        if (jitsiApi) {
+            jitsiApi.dispose();
+        }
 
-    // Handle hangup event
-    jitsiApi.addEventListener('videoConferenceLeft', () => {
-        closeVideoCall();
-    });
+        // Initialize new instance
+        jitsiApi = new JitsiMeetExternalAPI(domain, options);
 
-    // Handle errors
-    jitsiApi.addEventListener('errorOccurred', (error) => {
-        console.error('Jitsi Meet Error:', error);
-        closeVideoCall();
-    });
+        // Add event listeners for connection stability
+        jitsiApi.addEventListener('videoConferenceJoined', () => {
+            console.log('Successfully joined video conference');
+        });
+
+        jitsiApi.addEventListener('connectionEstablished', () => {
+            console.log('Connection established');
+        });
+
+        jitsiApi.addEventListener('connectionFailed', () => {
+            console.error('Connection failed');
+            handleConnectionFailure();
+        });
+
+        jitsiApi.addEventListener('videoConferenceLeft', () => {
+            console.log('Left video conference');
+            closeVideoCall();
+        });
+
+    } catch (error) {
+        console.error('Error initializing video call:', error);
+        handleConnectionFailure();
+    }
 }
 
+function handleConnectionFailure() {
+    alert('Video call connection failed. Please try again.');
+    closeVideoCall();
+}
 
 function closeVideoCall() {
     try {
@@ -366,38 +293,27 @@ function closeVideoCall() {
             jitsiApi.dispose();
             jitsiApi = null;
         }
-        const container = document.querySelector('#jitsi-container');
-        if (container) {
-            container.classList.add('hidden');
-        }
+        document.querySelector('#jitsi-container').classList.add('hidden');
     } catch (error) {
         console.error('Error closing video call:', error);
     }
 }
 
-// Add event listener for ESC key to close the video call
+// Add event listener for ESC key
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         closeVideoCall();
     }
 });
+
+// Add connection recovery handler
+window.addEventListener('online', () => {
+    if (jitsiApi) {
+        handleConnectionFailure();
+        setTimeout(startVideoCall, 1000);
+    }
+});
 </script>
-
-<!-- Add this HTML for the container -->
-<div id="jitsi-container" class="hidden fixed inset-0 z-50">
-    <div class="absolute inset-0 bg-black bg-opacity-75"></div>
-    <div class="relative w-full h-full flex items-center justify-center">
-        <div class="bg-white w-full h-full md:w-4/5 md:h-4/5 relative rounded-lg overflow-hidden">
-            <button onclick="closeVideoCall()" class="absolute top-4 right-4 z-50 bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <div id="meet" class="w-full h-full"></div>
-        </div>
-    </div>
-</div>
-
 
 <style>
     #jitsi-container {
