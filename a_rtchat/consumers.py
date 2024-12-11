@@ -93,3 +93,28 @@ class ChatroomConsumer(WebsocketConsumer):
 
         html = render_to_string("a_rtchat/partials/online_count.html", context)
         self.send(text_data=html) 
+
+
+# a_rtchat/consumers.py
+from channels.generic.websocket import WebsocketConsumer
+from asgiref.sync import async_to_sync
+
+class ChatConsumer(WebsocketConsumer):
+    def connect(self):
+        # Only allow authenticated users
+        if self.scope["user"].is_authenticated:
+            self.accept()
+            # Get the room name from the URL
+            self.room_name = self.scope['url_route']['kwargs']['room_name']
+            self.room_group_name = f'chat_{self.room_name}'
+            
+            # Join room group
+            async_to_sync(self.channel_layer.group_add)(
+                self.room_group_name,
+                self.channel_name
+            )
+            
+            if hasattr(self, 'chatroom') and self.chatroom:
+                self.chatroom.users_online.add(self.scope["user"])
+        else:
+            self.close()

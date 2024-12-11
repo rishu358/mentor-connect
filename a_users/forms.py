@@ -10,13 +10,25 @@ from .models import Profile
 from django.contrib.auth.forms import UserCreationForm  # Add this import
 
 
-
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    user_type = forms.CharField(widget=forms.HiddenInput(), required=False)
     
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            # Create profile with user_type
+            Profile.objects.create(
+                user=user,
+                user_type=self.cleaned_data.get('user_type', 'MENTEE')
+            )
+        return user
+    
 
 class ProfileForm(ModelForm):
     class Meta:
@@ -72,34 +84,40 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile
 
+
 class MentorRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ['username', 'email', 'password1', 'password2']
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.email = self.cleaned_data['email']
         if commit:
             user.save()
-            Profile.objects.create(user=user, user_type='MENTOR')
+            Profile.objects.create(
+                user=user,
+                user_type='MENTOR'
+            )
         return user
+    
 
 class MenteeRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ['username', 'email', 'password1', 'password2']
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.email = self.cleaned_data['email']
         if commit:
             user.save()
-            Profile.objects.create(user=user, user_type='MENTEE')
+            Profile.objects.create(
+                user=user,
+                user_type='MENTEE'
+            )
         return user
 
 class CustomUserCreationForm(forms.ModelForm):
@@ -145,3 +163,26 @@ class MenteeSignupForm(SignupForm):
             user_type='MENTEE'
         )
         return user
+    
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image', 'displayname', 'info']
+        labels = {
+            'image': 'Profile Picture',
+            'displayname': 'Display Name',
+            'info': 'About Me'
+        }
+        widgets = {
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'displayname': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your display name'
+            }),
+            'info': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Tell us about yourself'
+            })
+        }

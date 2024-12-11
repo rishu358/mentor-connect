@@ -126,24 +126,35 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import MentorRegistrationForm, MenteeRegistrationForm
 
+# a_users/views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import MentorRegistrationForm, MenteeRegistrationForm
+
 def register_mentor(request):
     if request.method == 'POST':
         form = MentorRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('profile-onboarding')
     else:
         form = MentorRegistrationForm()
-    return render(request, 'account/signup.html', {'form': form, 'user_type': 'Mentor'})
+    return render(request, 'a_users/signup.html', {
+        'user_form': form,
+        'user_type': 'Mentor'
+    })
 
 def register_mentee(request):
     if request.method == 'POST':
         form = MenteeRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('profile-onboarding')
     else:
         form = MenteeRegistrationForm()
-    return render(request, 'account/signup.html', {'form': form, 'user_type': 'Mentee'})
+    return render(request, 'a_users/signup.html', {
+        'user_form': form,
+        'user_type': 'Mentee'
+    })

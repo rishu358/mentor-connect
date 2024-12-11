@@ -1,9 +1,13 @@
-<form action="{% url 'profile-emailchange' %}" method="post" class="flex gap-2 text-black" autocomplete="off">
+<!-- templates/partials/email_form.html -->
+<form method="POST" action="{% url 'profile-emailchange' %}" class="flex items-center">
     {% csrf_token %}
-    {% for field in form %}{{ field }}{% endfor %}
-    <button class="block !bg-gray-800" type="submit">Submit</button>
+    {{ form.email }}
+    <button type="submit" class="ml-2 text-blue-600 hover:underline">Save</button>
+    <button type="button" 
+            class="ml-2 text-gray-600 hover:underline"
+            hx-get="{% url 'profile-emailchange' %}"
+            hx-target="#email-address"
+            hx-swap="innerHTML">
+        Cancel
+    </button>
 </form>
-
-<a hx-swap-oob="true" id="email-edit" href="{% url 'profile-settings' %}" class="font-medium text-blue-600 hover:underline">
-    Cancel
-</a>

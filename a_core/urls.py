@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# a_core/urls.py
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
@@ -22,10 +23,12 @@ from a_users.views import profile_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),  # Authentication URLs
-    path('', include('a_home.urls')),  # Home/dashboard should be the default landing page
-    path('chat/', include('a_rtchat.urls')),  # Chat URLs come after home
+    path('accounts/', include('allauth.urls')),
+    path('', include('a_home.urls')),
+    path('chat/', include('a_rtchat.urls')),
+    # Include all a_users URLs
     path('profile/', include('a_users.urls')),
+    # This should come after the include() of a_users.urls
     path('@<username>/', profile_view, name="profile"),
 ]
 
