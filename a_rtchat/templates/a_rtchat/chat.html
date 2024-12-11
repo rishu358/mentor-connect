@@ -58,19 +58,39 @@
     <!-- Main Chat Area -->
     <div class="ml-64 flex-1 flex flex-col h-screen bg-gray-800">
         <!-- Chat Header -->
-        {% if chat_group.groupchat_name %}
-        <div class="flex justify-between items-center p-4 border-b border-gray-700">
+        {% if chat_group %}
+<div class="flex justify-between items-center p-4 border-b border-gray-700">
+    <div class="flex items-center">
+        {% if chat_group.is_private and other_user %}
+            <img src="{{ other_user.profile.avatar }}" class="w-10 h-10 rounded-full mr-3">
+            <h2 class="text-xl text-white font-bold">{{ other_user.profile.displayname }}</h2>
+        {% else %}
             <h2 class="text-xl text-white font-bold">{{ chat_group.groupchat_name }}</h2>
-            {% if user == chat_group.admin %}
-            <a href="{% url 'edit-chatroom' chat_group.group_name %}" 
-               class="p-2 bg-gray-700 hover:bg-blue-600 rounded-lg group transition-colors">
-                <svg class="fill-gray-400 group-hover:fill-white" width="16" height="16">
-                    <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"></path>
-                </svg>
-            </a>
-            {% endif %}
-        </div>
         {% endif %}
+    </div>
+    
+    <div class="flex items-center space-x-4">
+        <!-- Video Call Button -->
+        <button onclick="startVideoCall()" 
+                class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                <path d="M14 6.5v7a.5.5 0 00.8.4l3.7-3.7a.5.5 0 000-.8l-3.7-3.7a.5.5 0 00-.8.4z" />
+            </svg>
+            Video Call
+        </button>
+        
+        {% if user == chat_group.admin %}
+        <a href="{% url 'edit-chatroom' chat_group.group_name %}" 
+           class="p-2 bg-gray-700 hover:bg-blue-600 rounded-lg group transition-colors">
+            <svg class="fill-gray-400 group-hover:fill-white" width="16" height="16">
+                <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"></path>
+            </svg>
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
 
         <!-- Online Users Bar -->
         <div class="flex justify-center text-emerald-400 p-2 border-b border-gray-700">
@@ -135,6 +155,128 @@
         </div>
     </div>
 </div>
+<div id="jitsi-container" class="hidden fixed inset-0 z-50">
+    <div class="absolute inset-0 bg-black bg-opacity-75"></div>
+    <div class="relative w-full h-full flex items-center justify-center">
+        <div class="bg-white w-full h-full md:w-4/5 md:h-4/5 relative rounded-lg overflow-hidden">
+            <button onclick="closeVideoCall()" class="absolute top-4 right-4 z-50 bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div id="meet" class="w-full h-full"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+let jitsiApi = null;
+
+function startVideoCall() {
+    const domain = 'meet.jit.si';
+    const container = document.querySelector('#jitsi-container');
+    const meetDiv = document.querySelector('#meet');
+    
+    // Show the container
+    container.classList.remove('hidden');
+    
+    const options = {
+        roomName: '{{ chat_group.group_name }}',
+        width: '100%',
+        height: '100%',
+        parentNode: meetDiv,
+        userInfo: {
+            displayName: '{{ request.user.profile.displayname }}',
+            email: '{{ request.user.email }}'
+        },
+        configOverwrite: {
+            prejoinPageEnabled: false,
+            startWithAudioMuted: true,
+            startWithVideoMuted: true,
+            // Add these settings to disable security features
+            security: {
+                enableLobby: false,
+                requireModeration: false
+            },
+            // Allow anonymous access
+            disableModeratorIndicator: true,
+            enableLobbyChat: false,
+            enableClosePage: true,
+            disableDeepLinking: true,
+            // Disable authentication
+            enableAuth: false,
+            enableAuthTokenCreation: false
+        },
+        interfaceConfigOverwrite: {
+            TOOLBAR_BUTTONS: [
+                'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+                'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+                'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+                'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+                'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone',
+                'security'
+            ],
+            SHOW_JITSI_WATERMARK: false,
+            SHOW_WATERMARK_FOR_GUESTS: false,
+            // Disable lobby-related features
+            ENABLE_LOBBY: false,
+            DISABLE_JOIN_LEAVE_NOTIFICATIONS: true
+        }
+    };
+
+    // Initialize Jitsi Meet
+    jitsiApi = new JitsiMeetExternalAPI(domain, options);
+
+    // Remove the admin-specific code that was enabling the lobby
+    // {% if request.user == chat_group.admin %}
+    // jitsiApi.executeCommand('toggleLobby', true);
+    // jitsiApi.addEventListener('participantRoleChanged', function(event) {
+    //     if (event.role === 'moderator') {
+    //         jitsiApi.executeCommand('password', '{{ chat_group.group_name }}');
+    //     }
+    // });
+    // {% endif %}
+
+    // Handle participant joined event
+    jitsiApi.addEventListener('participantJoined', function(event) {
+        console.log('Participant joined:', event);
+    });
+
+    // Handle participant left event
+    jitsiApi.addEventListener('participantLeft', function(event) {
+        console.log('Participant left:', event);
+    });
+}
+
+function closeVideoCall() {
+    if (jitsiApi) {
+        jitsiApi.dispose();
+        jitsiApi = null;
+    }
+    document.querySelector('#jitsi-container').classList.add('hidden');
+}
+</script>
+
+<style>
+#jitsi-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+#meet {
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.hidden {
+    display: none;
+}
+</style>
 {% endblock %}
 
 {% block javascript %}
@@ -147,4 +289,134 @@
     }
     scrollToBottom();
 </script>
+<script src='https://meet.jit.si/external_api.js'></script>
+<script>
+let jitsiApi = null;
+
+function startVideoCall() {
+    const domain = 'meet.jit.si';
+    const container = document.querySelector('#jitsi-container');
+    const meetDiv = document.querySelector('#meet');
+    
+    // Show the container
+    container.classList.remove('hidden');
+    
+    const options = {
+        roomName: '{{ chat_group.get_meeting_id }}',
+        width: '100%',
+        height: '100%',
+        parentNode: meetDiv,
+        userInfo: {
+            displayName: '{{ request.user.profile.displayname }}',
+            email: '{{ request.user.email }}'
+        },
+        configOverwrite: {
+            prejoinPageEnabled: false,
+            startWithAudioMuted: true,
+            startWithVideoMuted: true,
+            disableModeratorIndicator: true,
+            enableLobby: false,
+            enableClosePage: false,
+            enableAuth: false,
+            disableDeepLinking: true,
+            disableInviteFunctions: true,
+            remoteVideoMenu: {
+                disableKick: true,
+                disableGrantModerator: true
+            }
+        },
+        interfaceConfigOverwrite: {
+            TOOLBAR_BUTTONS: [
+                'microphone', 'camera', 'desktop', 'fullscreen',
+                'fodeviceselection', 'hangup', 'chat',
+                'settings', 'raisehand', 'videoquality', 
+                'filmstrip', 'tileview'
+            ],
+            SHOW_JITSI_WATERMARK: false,
+            SHOW_WATERMARK_FOR_GUESTS: false,
+            SHOW_PROMOTIONAL_CLOSE_PAGE: false,
+            DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
+            HIDE_INVITE_MORE_HEADER: true,
+            MOBILE_APP_PROMO: false,
+            ENABLE_LOBBY: false,
+            SETTINGS_SECTIONS: ['devices', 'language', 'moderator'],
+            DEFAULT_REMOTE_DISPLAY_NAME: 'Participant'
+        }
+    };
+
+    // Initialize Jitsi Meet
+    jitsiApi = new JitsiMeetExternalAPI(domain, options);
+
+    // Handle hangup event
+    jitsiApi.addEventListener('videoConferenceLeft', () => {
+        closeVideoCall();
+    });
+
+    // Handle errors
+    jitsiApi.addEventListener('errorOccurred', (error) => {
+        console.error('Jitsi Meet Error:', error);
+        closeVideoCall();
+    });
+}
+
+
+function closeVideoCall() {
+    try {
+        if (jitsiApi) {
+            jitsiApi.dispose();
+            jitsiApi = null;
+        }
+        const container = document.querySelector('#jitsi-container');
+        if (container) {
+            container.classList.add('hidden');
+        }
+    } catch (error) {
+        console.error('Error closing video call:', error);
+    }
+}
+
+// Add event listener for ESC key to close the video call
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closeVideoCall();
+    }
+});
+</script>
+
+<!-- Add this HTML for the container -->
+<div id="jitsi-container" class="hidden fixed inset-0 z-50">
+    <div class="absolute inset-0 bg-black bg-opacity-75"></div>
+    <div class="relative w-full h-full flex items-center justify-center">
+        <div class="bg-white w-full h-full md:w-4/5 md:h-4/5 relative rounded-lg overflow-hidden">
+            <button onclick="closeVideoCall()" class="absolute top-4 right-4 z-50 bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div id="meet" class="w-full h-full"></div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #jitsi-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+    }
+    
+    #meet {
+        width: 100%;
+        height: 100%;
+        background: #000;
+    }
+    
+    .hidden {
+        display: none;
+    }
+</style>
 {% endblock %}
