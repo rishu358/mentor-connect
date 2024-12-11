@@ -1,17 +1,30 @@
 {% extends "account/base_entrance.html" %}
 {% load i18n %}
 {% load allauth account %}
+
 {% block head_title %}
     {% trans "Sign In" %}
 {% endblock head_title %}
+
 {% block content %}
     {% element h1 %}
         {% trans "Sign In" %}
     {% endelement %}
-    <p>
-        If you have not created an account yet, then please
-    <a href="{% url 'account_signup' %}?next={% url 'profile-onboarding' %}">sign up</a> first.
-    </p>
+
+    <div class="mb-6">
+        <p class="text-gray-600 mb-4">Don't have an account? Sign up as:</p>
+        <div class="flex space-x-4 justify-center">
+            <a href="{% url 'register-mentor' %}" 
+               class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                Register as Mentor
+            </a>
+            <a href="{% url 'register-mentee' %}" 
+               class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                Register as Mentee
+            </a>
+        </div>
+    </div>
+
     {% url 'account_login' as login_url %}
     {% element form form=form method="post" action=login_url tags="entrance,login" %}
         {% slot body %}
@@ -30,6 +43,7 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
+
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}

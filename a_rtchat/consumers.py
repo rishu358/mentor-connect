@@ -7,7 +7,8 @@ from .models import *
 
 class ChatroomConsumer(WebsocketConsumer):
     def connect(self):
-        self.user = self.scope['user']
+    # Get the actual User instance instead of the lazy object
+        self.user = self.scope["user"]._wrapped if hasattr(self.scope["user"], "_wrapped") else self.scope["user"]
         self.chatroom_name = self.scope['url_route']['kwargs']['chatroom_name'] 
         self.chatroom = get_object_or_404(ChatGroup, group_name=self.chatroom_name)
 
@@ -16,7 +17,7 @@ class ChatroomConsumer(WebsocketConsumer):
             self.channel_name
         )
 
-        # add and update online users
+        # Now add the resolved user instance
         if self.user not in self.chatroom.users_online.all():
             self.chatroom.users_online.add(self.user)
             self.update_online_count()
@@ -26,14 +27,17 @@ class ChatroomConsumer(WebsocketConsumer):
 
 
     def disconnect(self, close_code):
+    # Get the actual User instance
+        self.user = self.scope["user"]._wrapped if hasattr(self.scope["user"], "_wrapped") else self.scope["user"]
+    
         async_to_sync(self.channel_layer.group_discard)(
             self.chatroom_name, self.channel_name
         )
 
-        # remove and update online users
+    # Remove and update online users with resolved user instance
         if self.user in self.chatroom.users_online.all():
             self.chatroom.users_online.remove(self.user)
-            self.update_online_count() 
+            self.update_online_count()
 
 
 

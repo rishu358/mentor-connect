@@ -8,6 +8,13 @@ from django.contrib.auth.views import redirect_to_login
 from django.contrib import messages
 from .forms import *
 
+def home_view(request):
+    mentors = Profile.objects.filter(user_type='MENTOR')
+    context = {
+        'mentors': mentors
+    }
+    return render(request, 'home.html', context)
+
 def profile_view(request, username=None):
     if username:
         profile = get_object_or_404(User, username=username).profile
@@ -104,3 +111,39 @@ def user_management_view(request):
     else:
         form = ProfileForm(instance=request.user.profile)
     return render(request, 'a_users/profile_edit.html', {'form': form})
+
+
+from django.shortcuts import render, redirect
+from .forms import MentorSignupForm, MenteeSignupForm
+
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
+from .forms import UserRegistrationForm, ProfileForm
+
+from django.contrib import messages  # Add this import at the top
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import MentorRegistrationForm, MenteeRegistrationForm
+
+def register_mentor(request):
+    if request.method == 'POST':
+        form = MentorRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('profile-onboarding')
+    else:
+        form = MentorRegistrationForm()
+    return render(request, 'account/signup.html', {'form': form, 'user_type': 'Mentor'})
+
+def register_mentee(request):
+    if request.method == 'POST':
+        form = MenteeRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('profile-onboarding')
+    else:
+        form = MenteeRegistrationForm()
+    return render(request, 'account/signup.html', {'form': form, 'user_type': 'Mentee'})

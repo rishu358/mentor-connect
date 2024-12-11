@@ -194,8 +194,12 @@ function startVideoCall() {
     // Show the container
     container.classList.remove('hidden');
     
+    // Use the full Jitsi URL for the permanent room
+    const jitsiUrl = 'https://meet.jit.si/DisastrousDescriptionsEvolveLast'; // Replace with your actual permanent room URL
+    const roomName = jitsiUrl.split('/').pop(); // Extract room name from URL
+    
     const options = {
-        roomName: '{{ chat_group.get_meeting_id }}',
+        roomName: roomName,
         width: '100%',
         height: '100%',
         parentNode: meetDiv,
@@ -205,33 +209,13 @@ function startVideoCall() {
         },
         configOverwrite: {
             prejoinPageEnabled: false,
-            startWithAudioMuted: false,  // Changed to false for better initial experience
-            startWithVideoMuted: false,  // Changed to false for better initial experience
-            disableModeratorIndicator: true,
+            startWithAudioMuted: false,
+            startWithVideoMuted: false,
             enableLobby: false,
             enableClosePage: false,
             enableAuth: false,
             disableDeepLinking: true,
-            disableInviteFunctions: true,
-            // Add connection stability settings
-            p2p: {
-                enabled: true,
-                preferH264: true
-            },
-            // Add reconnect settings
-            enableNoAudioDetection: false,
-            enableNoisyMicDetection: false,
-            // Add connection optimization
-            resolution: 720,
-            constraints: {
-                video: {
-                    height: {
-                        ideal: 720,
-                        max: 720,
-                        min: 180
-                    }
-                }
-            }
+            disableInviteFunctions: true
         },
         interfaceConfigOverwrite: {
             TOOLBAR_BUTTONS: [
@@ -243,42 +227,18 @@ function startVideoCall() {
             SHOW_JITSI_WATERMARK: false,
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
             MOBILE_APP_PROMO: false,
-            SETTINGS_SECTIONS: ['devices', 'language'],
             DEFAULT_REMOTE_DISPLAY_NAME: 'Participant'
         }
     };
 
     try {
-        // Dispose of any existing instance
         if (jitsiApi) {
             jitsiApi.dispose();
         }
-
-        // Initialize new instance
         jitsiApi = new JitsiMeetExternalAPI(domain, options);
-
-        // Add event listeners for connection stability
-        jitsiApi.addEventListener('videoConferenceJoined', () => {
-            console.log('Successfully joined video conference');
-        });
-
-        jitsiApi.addEventListener('connectionEstablished', () => {
-            console.log('Connection established');
-        });
-
-        jitsiApi.addEventListener('connectionFailed', () => {
-            console.error('Connection failed');
-            handleConnectionFailure();
-        });
-
-        jitsiApi.addEventListener('videoConferenceLeft', () => {
-            console.log('Left video conference');
-            closeVideoCall();
-        });
-
     } catch (error) {
-        console.error('Error initializing video call:', error);
-        handleConnectionFailure();
+        console.error('Error in video call:', error);
+        closeVideoCall();
     }
 }
 
