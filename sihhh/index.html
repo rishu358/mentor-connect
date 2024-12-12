@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Connect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#0D503C',
+                        'brand-light': '#E6F2EF',
+                        'brand-dark': '#0A3D2F',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%230D503C' fill-opacity='0.05' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: 8px 8px; /* Adjust the size of the dots */
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <!-- Top Navigation Bar -->
+    <header class="fixed top-5 left-0 w-full z-10">
+        <div class="bg-white bg-opacity-80 rounded-full shadow-lg p-4 flex justify-between items-center mx-auto" style="max-width: 1000px;">
+            <div class="flex items-center">
+                <img src="media/Mentor connect logo.png" alt="Brand Logo" class="h-10">
+            </div>
+            <div class="hidden md:flex items-center space-x-6 text-black font-semibold">
+                <a href="#" class="hover:text-gray-700 transition">Home</a>
+                <a href="#" class="hover:text-gray-700 transition">Mentors</a>
+                <a href="#" class="hover:text-gray-700 transition">About Us</a>
+                <a href="#" class="hover:text-gray-700 transition">F.A.Q</a>
+                <a href="menteedashboard.html"><button class="bg-brand-green text-white px-6 py-2 rounded-full shadow-md hover:bg-opacity-90 transition">
+                    Get Started
+                </button></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="container mx-auto px-8 py-32 flex flex-col md:flex-row items-center gap-12">
+        <div class="w-full md:w-1/2 space-y-8 p-4 md:p-8">
+            <h1 class="text-5xl md:text-7xl font-bold text-gray-900">
+                Unlock Your Potential
+            </h1>
+            <p class="text-xl text-gray-600 max-w-xl">
+                Connect with expert mentors across various domains and take your career to the next level!
+            </p>
+
+            <a href="#" class="inline-flex items-center gap-3 bg-brand-light px-6 py-3 rounded-xl text-brand-green hover:bg-opacity-90 transition-all">
+                <span class="text-2xl">🎉</span>
+                <span>Get 15% off on all mentorship sessions!</span>
+                <span class="font-medium">Go Pro Now →</span>
+            </a>
+
+            <div class="flex flex-wrap gap-4">
+                <a href="menteedashboard.html"><button class="inline-flex items-center bg-brand-green text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    Find a Mentor
+                </button></a>
+                <button class="inline-flex items-center border-2 border-brand-green text-brand-green px-6 py-3 rounded-full hover:bg-brand-light transition-all">
+                    Be a Mentor
+                </button>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 flex justify-center items-center rounded-lg p-6 shadow-lg">
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
+            <lottie-player 
+                src="https://lottie.host/b065c0ec-8834-417f-9056-fe5a4dc4b634/ujCPhvE4Gp.json" 
+                background="#FFFFFF" 
+                speed="1" 
+                style="width: 550px; height: 550px;" 
+                loop 
+                autoplay 
+                direction="1" 
+                mode="normal">
+            </lottie-player>
+        </div>
+    </main>
+
+    <!-- Categories Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-8">
+            <h2 class="text-3xl font-bold text-center mb-8 animate-fade-in">Explore Our Categories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="flex items-center space-x-4 p-4 rounded-xl border hover:shadow-xl hover:bg-brand-light transition-all duration-300 animate-slide-up">
+                    <img src="media/course-img9.png" alt="Blockchain" class="w-12 h-12 rounded-full bg-brand-light">
+                    <span class="font-medium">Blockchain</span>
+                </div>
+                <div class="flex items-center space-x-4 p-4 rounded-xl border hover:shadow-xl hover:bg-brand-light transition-all duration-300 animate-slide-up">
+                    <img src="media/course-img3.png" alt="UI Design" class="w-12 h-12 rounded-full bg-brand-light">
+                    <span class="font-medium">UI Design</span>
+                </div>
+                <div class="flex items-center space-x-4 p-4 rounded-xl border hover:shadow-xl hover:bg-brand-light transition-all duration-300 animate-slide-up">
+                    <img src="media/course-img2.png" alt="Machine Learning" class="w-12 h-12 rounded-full bg-brand-light">
+                    <span class="font-medium">Machine Learning</span>
+                </div>
+                <div class="flex items-center space-x-4 p-4 rounded-xl border hover:shadow-xl hover:bg-brand-light transition-all duration-300 animate-slide-up">
+                    <img src="media/FullStack img.png" alt="Data Science" class="w-12 h-12 rounded-full bg-brand-light">
+                    <span class="font-medium">Data Science</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="text-gray-600 body-font">
+        <div class="container px-24 py-16 mx-auto flex flex-wrap">
+            <div class="flex w-full mb-20 flex-wrap">
+                <h1 class="sm:text-3xl text-4xl title-font text-gray-900 lg:w-1/3 lg:mb-0 mb-4 animate-fade-in">Features of MentorConnect</h1>
+                <p class="lg:pl-6 lg:w-2/3 mx-auto leading-relaxed text-base animate-slide-up">Discover the unique features that set us apart and help you achieve your goals.</p>
+            </div>
+            <div class="flex flex-wrap md:-m-2 -m-1">
+                <div class="flex flex-wrap w-1/2">
+                    <div class="md:p-2 p-1 w-1/2 hover:opacity-90 hover:scale-110 transition duration-300 animate-slide-up">
+                        <img alt="gallery" class="w-full object-cover h-full object-center block" src="https://dummyimage.com/500x300">
+                    </div>
+                    <div class="md:p-2 p-1 w-1/2 hover:opacity-90 hover:scale-110 transition duration-300 animate-slide-up">
+                        <img alt="gallery" class="w-full object-cover h-full object-center block" src="https://dummyimage.com/501x301">
+                    </div>
+                    <div class="md:p-2 p-1 w-full hover:opacity-90 hover:scale-110 transition duration-300 animate-slide-up">
+                        <img alt="gallery" class="w-full h-full object-cover object-center block" src="https://dummyimage.com/600x360">
+                    </div>
+                </div>
+                <div class="flex flex-wrap w-1/2">
+                    <div class="md:p-2 p-1 w-full hover:opacity-90 hover:scale-110 transition duration-300 animate-slide-up">
+                        <img alt="gallery" class="w-full h-full object-cover object-center block" src="https://dummyimage.com/601x361">
+                    </div>
+                    <div class="md:p-2 p-1 w-1/2 hover:opacity-90 hover:scale-110 transition duration-300 animate-slide-up">
+                        <img alt="gallery" class="w-full object-cover h-full object-center block" src="https://dummyimage.com/502x302">
+                    </div>
+                    <div class="md:p-2 p-1 w-1/2 hover:opacity-90 hover:scale-110 transition duration-300 animate-slide-up">
+                        <img alt="gallery" class="w-full object-cover h-full object-center block" src="https://dummyimage.com/503x303">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 animate-fade-in">
+                    Start Your Career with Us
+                </h2>
+                <button class="text-brand-green font-medium animate-slide-up">View All</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow animate-slide-up">
+                    <img src="media/course-img2.png" alt="Course Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Adish Mehta - The Blockchain Mastery</h3>
+                        <p class="text-gray-600 text-sm mb-4">Learn professional Blockchain products from industry experts</p>
+                        <button class="bg-brand-green text-white px-6 py-2 rounded-full text-sm hover:bg-opacity-90">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow animate-slide-up">
+                    <img src="media/course-img9.png" alt="Course Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Roshni Khanna - The UI Masterclass</h3>
+                        <p class="text-gray-600 text-sm mb-4">Master the art of UI designing with hands-on training</p>
+                        <button class="bg-brand-green text-white px-6 py-2 rounded-full text-sm hover:bg-opacity-90">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow animate-slide-up">
+                    <img src="media/FullStack img.png" alt="Course Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Rohan Negi - Machine Learning Course</h3>
+                        <p class="text-gray-600 text-sm mb-4">Create Machine learning models with professional techniques</p>
+                        <button class="bg-brand-green text-white px-6 py-2 rounded-full text-sm hover:bg-opacity-90">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow animate-slide-up">
+                    <img src="media/course-img3.png" alt="Course Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Srinidhi Iyer - Data Wizardry</h3>
+                        <p class="text-gray-600 text-sm mb-4">Learn advanced Data analysis treatments and techniques</p>
+                        <button class="bg-brand-green text-white px-6 py-2 rounded-full text-sm hover:bg-opacity-90">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="bg-brand-light py-16">
+        <div class="container mx-auto px-8 relative">
+            <div class="max-w-4xl mx-auto text-center text-brand-green animate-fade-in">
+                <h2 class="text-2xl font-semibold mb-8">PROUD USERS OF MENTORCONNECT.</h2>
+                <div class="relative">
+                    <svg class="w-12 h-12 text-teal-400 absolute -top-6 -left-6 opacity-50" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4">The courses here are amazing</h3>
+                        <p class="text-brand-green/80 max-w-2xl mx-auto">
+                            One of the best mentorship and guidance platforms.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-center space-x-4">
+                        <img src="media/ai-generated-anime-boy-students-face-who-is-indian-light-brown-in-skin-tone-and-bit-chubby-and-heal-42388083.png" alt="Student" class="w-12 h-12 rounded-full">
+                        <div class="text-left">
+                            <p class="font-medium">Mihir Panpatil</p>
+                            <p class="text-sm text-brand-green/70">Machine Learning Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-white text-brand-green">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center animate-fade-in">
+                <h2 class="text-4xl font-bold mb-6">Ready to Transform Your Career?</h2>
+                <p class="text-xl mb-8 opacity-80">Join thousands of students pursuing professional mentorship from Mentor Connect.</p>
+                <button class="bg-brand-green text-white px-6 py-2 rounded-full text-sm hover:bg-opacity-90">
+                    Get Started Free
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-green text-white">
+        <div class="container mx-auto px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <img src="/placeholder.svg?height=40&width=120" alt="Brand Logo" class="h-10">
+                    <p class="text-sm opacity-80">
+                        Empowering professionals through quality education and training.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="#" class="hover:opacity-100">About Us</a></li>
+                        <li><a href="#" class="hover:opacity-100">Courses</a></li>
+                        <li><a href="#" class="hover:opacity-100">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li>contact@example.com</li>
+                        <li>+1 234 567 890</li>
+                        <li>123 Education Street</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:opacity-80">FB</a>
+                        <a href="#" class="hover:opacity-80">TW</a>
+                        <a href="#" class="hover:opacity-80">IG</a>
+                        <a href="#" class="hover:opacity-80">LI</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

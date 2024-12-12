@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Connect - Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mentor-teal': 'rgba(34, 84, 85, 1)',
+                        'chat-bg': 'rgba(240, 255, 255, 1)',
+                        'button-blue': 'rgba(61, 175, 249, 1)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-screen flex overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-60 bg-teal-600 text-white flex flex-col h-screen">
+        <div class="p-4 text-xl font-bold">Mentor Connect</div>
+        <nav class="flex-1">
+            <a href="menteedashboard.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Dashboard</span>
+            </a>
+            <a href="MentorDiscovery.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Mentor</span>
+            </a>
+            <a href="Scheduler.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Schedule</span>
+            </a>
+            <a href="library.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Resources</span>
+            </a>
+            <a href="chat.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Chats</span>
+            </a>
+            <a href="community.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Community</span>
+            </a>
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <a href="profile-settings.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Account Settings</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+        <!-- Account Settings -->
+        <div class="p-6 border-t border-white/10">
+            <ul class="space-y-4">
+                <li class="flex items-center space-x-3 p-2 rounded hover:bg-white/10">
+                    <span>Account Settings</span>
+                </li>
+                <li class="flex items-center space-x-3 p-2 rounded hover:bg-white/10">
+                    <span>Log Out</span>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col bg-chat-bg overflow-y-auto">
+        <!-- Header -->
+        <header class="h-16 px-6 flex items-center justify-between bg-white border-b">
+            <div class="flex items-center space-x-4">
+                <h2 class="text-lg font-semibold">Library</h2>
+            </div>
+            <div class="flex-1 max-w-xl mx-4">
+                <div class="relative">
+                    <input type="text" placeholder="Search" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-mentor-teal">
+                    <svg class="w-5 h-5 absolute right-3 top-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="p-2 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-9.33-5.197M9 21h6"/>
+                    </svg>
+                </button>
+                <button class="p-2 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A1 1 0 014 17V7a1 1 0 011.121-.804l7 2.5a1 1 0 010 1.608l-7 2.5zM15 7v10m4-10v10"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Breadcrumb and Sort -->
+        <div class="flex items-center justify-between p-6">
+            <div class="text-gray-600">Home &gt; Library</div>
+            <div class="flex items-center space-x-4">
+                <span class="text-gray-600">Sort By:</span>
+                <select class="px-4 py-2 border rounded-lg focus:outline-none focus:border-mentor-teal">
+                    <option>Popular</option>
+                    <option>Newest</option>
+                    <option>Oldest</option>
+                </select>
+            </div>
+        </div>
+
+                <!-- Recommended For You -->
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-4">Recommended For You</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Content Card -->
+                        <div class="bg-gray-200 p-4 rounded-lg">
+                            <div class="h-32 bg-gray-300 rounded mb-4">
+                                <img src="media/course-img3.png" alt="Demo Image" class="h-full w-full object-cover rounded">
+                            </div>
+                            <div class="text-gray-600 mb-2">Authentication</div>
+                            <div class="font-semibold mb-2">Security Management</div>
+                            <div class="text-gray-600 mb-4">Writer: Albert James</div>
+                            <a href="CourseDetails.html" class="px-4 py-2 bg-button-blue text-white rounded-lg">Read Now</a>
+                        </div>
+                        <div class="bg-gray-200 p-4 rounded-lg">
+                            <div class="h-32 bg-gray-300 rounded mb-4">
+                                <img src="media/course-img2.png" alt="Demo Image" class="h-full w-full object-cover rounded">
+                            </div>
+                            <div class="text-gray-600 mb-2">Authentication</div>
+                            <div class="font-semibold mb-2">Data Protection</div>
+                            <div class="text-gray-600 mb-4">Writer: Sarah Smith</div>
+                            <a href="CourseDetails.html" class="px-4 py-2 bg-button-blue text-white rounded-lg">Read Now</a>
+                        </div>
+                        <div class="bg-gray-200 p-4 rounded-lg">
+                            <div class="h-32 bg-gray-300 rounded mb-4">
+                                <img src="media/course-img9.png" alt="Demo Image" class="h-full w-full object-cover rounded">
+                            </div>
+                            <div class="text-gray-600 mb-2">Authentication</div>
+                            <div class="font-semibold mb-2">Network Security</div>
+                            <div class="text-gray-600 mb-4">Writer: John Doe</div>
+                            <a href="CourseDetails.html" class="px-4 py-2 bg-button-blue text-white rounded-lg">Read Now</a>
+                        </div>
+                        <div class="bg-gray-200 p-4 rounded-lg">
+                            <div class="h-32 bg-gray-300 rounded mb-4">
+                                <img src="media/FullStack img.png" alt="Demo Image" class="h-full w-full object-cover rounded">
+                            </div>
+                            <div class="text-gray-600 mb-2">Authentication</div>
+                            <div class="font-semibold mb-2">Cloud Security</div>
+                            <div class="text-gray-600 mb-4">Writer: Jane Doe</div>
+                            <a href="CourseDetails.html" class="px-4 py-2 bg-button-blue text-white rounded-lg">Read Now</a>
+                        </div>
+                    </div>
+                </div>
+
+         <!-- Roadmaps Section -->
+         <div class="p-6">
+            <h3 class="text-xl font-semibold mb-4">Roadmaps</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Roadmap Card -->
+                <div class="bg-gray-200 p-4 rounded-lg">
+                    <div class="h-24 bg-gray-300 rounded mb-4"></div>
+                    <div class="font-semibold mb-2">Frontend Development</div>
+                    <button class="px-4 py-2 bg-button-blue text-white rounded-lg" onclick="downloadFile('Frontend-Roadmap.pdf')">Download</button>
+                </div>
+                <div class="bg-gray-200 p-4 rounded-lg">
+                    <div class="h-24 bg-gray-300 rounded mb-4"></div>
+                    <div class="font-semibold mb-2">Backend Development</div>
+                    <button class="px-4 py-2 bg-button-blue text-white rounded-lg" onclick="downloadFile('Backend-Roadmap.pdf')">Download</button>
+                </div>
+                <div class="bg-gray-200 p-4 rounded-lg">
+                    <div class="h-24 bg-gray-300 rounded mb-4"></div>
+                    <div class="font-semibold mb-2">Full Stack Development</div>
+                    <button class="px-4 py-2 bg-button-blue text-white rounded-lg" onclick="downloadFile('Fullstack-Roadmap.pdf')">Download</button>
+                </div>
+                <div class="bg-gray-200 p-4 rounded-lg">
+                    <div class="h-24 bg-gray-300 rounded mb-4"></div>
+                    <div class="font-semibold mb-2">Data Science</div>
+                    <button class="px-4 py-2 bg-button-blue text-white rounded-lg" onclick="downloadFile('Datascience-Roadmap.pdf')">Download</button>
+                </div>
+                <div class="bg-gray-200 p-4 rounded-lg">
+                    <div class="h-24 bg-gray-300 rounded mb-4"></div>
+                    <div class="font-semibold mb-2">Machine Learning</div>
+                    <button class="px-4 py-2 bg-button-blue text-white rounded-lg" onclick="downloadFile('Ml-Roadmap.pdf')">Download</button>
+                </div>
+                <div class="bg-gray-200 p-4 rounded-lg">
+                    <div class="h-24 bg-gray-300 rounded mb-4"></div>
+                    <div class="font-semibold mb-2">Cybersecurity</div>
+                    <button class="px-4 py-2 bg-button-blue text-white rounded-lg" onclick="downloadFile('Cybersecurity-Roadmap.pdf')">Download</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex items-center justify-between p-6">
+            <button class="px-4 py-2 bg-gray-200 rounded-lg">Previous</button>
+            <div class="flex space-x-2">
+                <button class="px-4 py-2 bg-gray-200 rounded-lg">1</button>
+                <button class="px-4 py-2 bg-gray-200 rounded-lg">2</button>
+                <button class="px-4 py-2 bg-gray-200 rounded-lg">3</button>
+                <!-- Add more page numbers as needed -->
+            </div>
+            <button class="px-4 py-2 bg-gray-200 rounded-lg">Next</button>
+        </div>
+    </main>
+
+    <script>
+        function downloadFile(filename) {
+            const link = document.createElement('a');
+            link.href = filename;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

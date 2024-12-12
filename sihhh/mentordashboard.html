@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Connect Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .mentor-logo {
+            width: 40px;
+            height: 40px;
+            margin: 10px;
+        }
+        .mentor-dashboard {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="mentor-dashboard">
+        <div class="flex justify-center mb-4">
+            <h1 class="text-3xl font-bold text-gray-800">Welcome, Merna!</h1>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between mb-4">
+            <!-- Left Sidebar -->
+            <div class="flex flex-col w-full md:w-1/4 bg-gray-100 p-4 rounded-lg mb-4 md:mb-0">
+                <div class="p-4 text-xl font-bold">Mentor Connect</div>
+                <nav class="flex-1">
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                        <span>Mentor</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                        <span>Schedule</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                        <span>Resources</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                        <span>Chats</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                        <span>Community</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                        <span>All Mentor</span>
+                    </a>
+                </nav>
+                <div class="mt-auto">
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                        <span>Account Settings</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                        <span>Log Out</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Main Content -->
+            <div class="flex flex-col w-full md:w-3/4 bg-gray-100 p-4 rounded-lg">
+                <!-- Header -->
+                <header class="bg-white p-4 flex items-center justify-between border-b">
+                    <h1 class="text-2xl font-semibold">Welcome, Merna!</h1>
+                    <div class="flex items-center space-x-4">
+                        <input type="search" placeholder="Search" class="px-4 py-2 border rounded-lg w-96">
+                        <button class="p-2">🔔</button>
+                        <button class="p-2">👤</button>
+                    </div>
+                </header>
+                <!-- Join Club Section -->
+                <section class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-2xl font-bold mb-2">Get Involved – Join a Club Today!</h2>
+                    <p class="text-gray-600 mb-4">Explore your interests and meet like-minded students by joining one of our many clubs. Whether you're into sports, arts, or academics, there's a club for you!</p>
+                    <button class="bg-teal-600 text-white px-6 py-2 rounded-lg">Learn More</button>
+                </section>
+                <!-- Community Groups -->
+                <section>
+                    <h2 class="text-xl font-bold mb-4">Community Groups</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold">Tech Innovators</h3>
+                            <p class="text-gray-600">Join us to discuss the latest in technology and innovation.</p>
+                            <button class="bg-teal-600 text-white px-4 py-1 rounded">Join Group</button>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold">Art Enthusiasts</h3>
+                            <p class="text-gray-600">A space for artists to share their work and collaborate.</p>
+                            <button class="bg-teal-600 text-white px-4 py-1 rounded">Join Group</button>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold">Sports Fanatics</h3>
+                            <p class="text-gray-600">Connect with fellow sports lovers and participate in events.</p>
+                            <button class="bg-teal-600 text-white px-4 py-1 rounded">Join Group</button>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold">Book Club</h3>
+                            <p class="text-gray-600">Join us for monthly discussions on our favorite reads.</p>
+                            <button class="bg-teal-600 text-white px-4 py-1 rounded">Join Group</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

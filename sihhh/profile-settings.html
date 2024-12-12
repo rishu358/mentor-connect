@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Connect - Personal Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mentor-teal': 'rgba(0, 128, 128, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="flex h-screen w-full">
+        <!-- Left Sidebar -->
+        <aside class="fixed h-screen w-[200px] bg-mentor-teal text-white flex flex-col">
+            <div class="p-4 text-xl font-bold">Mentor Connect</div>
+            <nav class="flex-1 space-y-5 p-4">
+                <a href="menteedashboard.html" class="flex items-center space-x-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="MentorDiscovery.html" class="flex items-center space-x-2">
+                    <span>Mentor</span>
+                </a>
+                <a href="Scheduler.html" class="flex items-center space-x-2">
+                    <span>Schedule</span>
+                </a>
+                <a href="library.html" class="flex items-center space-x-2">
+                    <span>Resources</span>
+                </a>
+                <a href="chat.html" class="flex items-center space-x-2">
+                    <span>Chats</span>
+                </a>
+                <a href="community.html" class="flex items-center space-x-2">
+                    <span>Community</span>
+                </a>
+            </nav>
+            <div class="mt-auto">
+                <a href="#" class="flex items-center space-x-2">
+                    <span>Account Settings</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2">
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 bg-gray-50 ml-[200px] overflow-y-auto">
+            <!-- Header -->
+            <header class="bg-gray-100 p-6">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-3xl font-bold">Personal Settings</h1>
+                    <div class="flex items-center space-x-4">
+                        <img src="media/ai-generated-anime-boy-students-face-who-is-indian-light-brown-in-skin-tone-and-bit-chubby-and-heal-42388083.png" alt="Profile" class="w-[60px] h-[60px] rounded-full"/>
+                        <div>
+                            <h2 class="text-xl font-semibold flex items-center">
+                                Mohid Khan
+                            </h2>
+                            <div class="text-sm text-gray-600 space-x-4">
+                                <span>UX Designer</span>
+                                <span>San Francisco</span>
+                                <span>Join August 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="p-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-6">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold mb-2">Update Personal Information</h3>
+                            <input type="text" class="w-full border rounded-lg p-2 mb-4" placeholder="Full Name"/>
+                            <input type="email" class="w-full border rounded-lg p-2 mb-4" placeholder="Email Address"/>
+                            <input type="tel" class="w-full border rounded-lg p-2 mb-4" placeholder="Phone Number"/>
+                            <button class="bg-mentor-teal text-white px-4 py-2 rounded">Save Changes</button>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold mb-2">Change Password</h3>
+                            <input type="password" class="w-full border rounded-lg p-2 mb-4" placeholder="Current Password"/>
+                            <input type="password" class="w-full border rounded-lg p-2 mb-4" placeholder="New Password"/>
+                            <input type="password" class="w-full border rounded-lg p-2 mb-4" placeholder="Confirm New Password"/>
+                            <button class="bg-mentor-teal text-white px-4 py-2 rounded">Update Password</button>
+                        </div>
+                    </div>
+            
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold mb-2">Notification Settings</h3>
+                            <div class="flex items-center mb-4">
+                                <input type="checkbox" id="emailNotifications" class="mr-2">
+                                <label for="emailNotifications">Email Notifications</label>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <input type="checkbox" id="smsNotifications" class="mr-2">
+                                <label for="smsNotifications">SMS Notifications</label>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <input type="checkbox" id="pushNotifications" class="mr-2">
+                                <label for="pushNotifications">Push Notifications</label>
+                            </div>
+                            <button class="bg-mentor-teal text-white px-4 py-2 rounded">Save Notification Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

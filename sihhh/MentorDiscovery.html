@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Mentors - Education Programme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#0D503C',
+                        'brand-light': '#E6F2EF'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-screen flex overflow-hidden bg-chat-bg">
+
+    <aside class="w-60 bg-teal-600 text-white flex flex-col h-screen">
+        <div class="p-4 text-xl font-bold">Mentor Connect</div>
+        <nav class="flex-1">
+            <a href="menteedashboard.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Dashboard</span>
+            </a>
+            <a href="MentorDiscovery.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Mentor</span>
+            </a>
+            <a href="Scheduler.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Schedule</span>
+            </a>
+            <a href="library.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Resources</span>
+            </a>
+            <a href="chat.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Chats</span>
+            </a>
+            <a href="community.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Community</span>
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <a href="profile-settings.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Account Settings</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto p-8">
+        <!-- Breadcrumb -->
+        <div class="flex items-center space-x-2 text-sm text-gray-600 mb-8">
+            <a href="#" class="hover:text-brand-green">Home</a>
+            <span>/</span>
+            <span class="text-brand-green">Discover Mentors</span>
+        </div>
+
+        <!-- Search Section -->
+        <div class="mb-12">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">Find Your Perfect Mentor</h1>
+            <div class="relative mb-8">
+                <input type="text" 
+                    placeholder="Search by name, specialty, or expertise..." 
+                    class="w-full px-6 py-4 border rounded-full text-gray-700 focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green pl-12">
+                <svg class="w-6 h-6 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Enhanced Filters -->
+        <div class="flex flex-wrap gap-4 mb-8">
+            <select class="px-4 py-2 border rounded-full text-gray-700 focus:outline-none focus:border-brand-green">
+                <option value="">Domain</option>
+                <option value="tech">Tech</option>
+                <option value="design">Design</option>
+                <option value="management">Management</option>
+                <option value="analysis">Analytics</option>
+            </select>
+            <select class="px-4 py-2 border rounded-full text-gray-700 focus:outline-none focus:border-brand-green">
+                <option value="">Experience Level</option>
+                <option value="beginner">Beginner (1-3 years)</option>
+                <option value="intermediate">Intermediate (4-7 years)</option>
+                <option value="advanced">Advanced (8-12 years)</option>
+                <option value="expert">Expert (12+ years)</option>
+            </select>
+            <select class="px-4 py-2 border rounded-full text-gray-700 focus:outline-none focus:border-brand-green">
+                <option value="">Availability</option>
+                <option value="weekdays">Weekdays</option>
+                <option value="weekends">Weekends</option>
+                <option value="evenings">Evenings</option>
+                <option value="fulltime">Full-time</option>
+            </select>
+            <select class="px-4 py-2 border rounded-full text-gray-700 focus:outline-none focus:border-brand-green">
+                <option value="">Profession</option>
+                <option value="Subject Matter Expert">Subject Matter Expert</option>
+                <option value="Senior Industry Leader">Senior Industry Leader</option>
+            </select>
+        </div>
+
+        <!-- Active Filters -->
+        <div class="flex flex-wrap gap-2 mb-8">
+            <span class="bg-brand-light text-brand-green px-4 py-2 rounded-full text-sm flex items-center">
+                TECH
+                <button class="ml-2 hover:text-brand-green">×</button>
+            </span>
+            <span class="bg-brand-light text-brand-green px-4 py-2 rounded-full text-sm flex items-center">
+                Expert
+                <button class="ml-2 hover:text-brand-green">×</button>
+            </span>
+        </div>
+
+        <!-- Mentors Grid Container with Scroll -->
+        <div class="h-[1000px] overflow-y-auto pr-4 -mr-4 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Mentor Card Template -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="relative">
+                        <img src="media/mentor-cover-img1.png" alt="Mentor" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <h3 class="font-semibold text-lg">Sophie Anderson</h3>
+                            <img src="media/badge mentorConnect.jpg" alt="Badge" class="w-8 h-8 rounded-full">
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">BLOCKCHAIN DEVELOPER</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">10 years experience</span>
+                            <div class="flex items-center">
+                                <span class="text-yellow-400">★★★★</span>
+                                <span class="text-sm text-gray-500 ml-1">(4)</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">django</span>
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">AI</span>
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">ipfs</span>
+                        </div>
+                        <button class="w-full bg-brand-green text-white py-2 rounded-full hover:bg-opacity-90 transition-colors">
+                            Book Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="relative">
+                        <img src="media/mentor-cover-img1.png" alt="Mentor" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <h3 class="font-semibold text-lg">Sophie Anderson</h3>
+                            <img src="media/badge mentorConnect.jpg" alt="Badge" class="w-8 h-8 rounded-full">
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">BLOCKCHAIN DEVELOPER</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">10 years experience</span>
+                            <div class="flex items-center">
+                                <span class="text-yellow-400">★★★★</span>
+                                <span class="text-sm text-gray-500 ml-1">(4)</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">html</span>
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">tailwind</span>
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">javascript</span>
+                        </div>
+                        <button class="w-full bg-brand-green text-white py-2 rounded-full hover:bg-opacity-90 transition-colors">
+                            Book Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="relative">
+                        <img src="media/mentor-cover-img1.png" alt="Mentor" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <h3 class="font-semibold text-lg">Sophie Anderson</h3>
+                            <img src="media/badge mentorConnect.jpg" alt="Badge" class="w-8 h-8 rounded-full">
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">BLOCKCHAIN DEVELOPER</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">10 years experience</span>
+                            <div class="flex items-center">
+                                <span class="text-yellow-400">★★★★</span>
+                                <span class="text-sm text-gray-500 ml-1">(4)</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">django</span>
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">javascript</span>
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">tailwind</span>
+                        </div>
+                        <button class="w-full bg-brand-green text-white py-2 rounded-full hover:bg-opacity-90 transition-colors">
+                            Book Session
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Repeat Mentor Card for other mentors -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="relative">
+                        <img src="media/mentor-cover-img3.png" alt="Mentor" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <h3 class="font-semibold text-lg">Marcus Thompson</h3>
+                            <img src="media/badge mentorConnect.jpg" alt="Badge" class="w-8 h-8 rounded-full">
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">DATA ENGINEER</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">14 years experience</span>
+                            <div class="flex items-center">
+                                <span class="text-yellow-400">★★★★★</span>
+                                <span class="text-sm text-gray-500 ml-1">(4.8)</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">react</span>
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">node</span>
+                            <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">mongodb</span>
+                        </div>
+                        <button class="w-full bg-brand-green text-white py-2 rounded-full hover:bg-opacity-90 transition-colors">
+                            Book Session
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add more mentor cards as needed -->
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center mt-12 space-x-2">
+            <button class="px-4 py-2 border rounded-full text-gray-600 hover:border-brand-green hover:text-brand-green">
+                Previous
+            </button>
+            <button class="px-4 py-2 bg-brand-green text-white rounded-full">1</button>
+            <button class="px-4 py-2 border rounded-full text-gray-600 hover:border-brand-green hover:text-brand-green">2</button>
+            <button class="px-4 py-2 border rounded-full text-gray-600 hover:border-brand-green hover:text-brand-green">3</button>
+            <button class="px-4 py-2 border rounded-full text-gray-600 hover:border-brand-green hover:text-brand-green">
+                Next
+            </button>
+        </div>
+    </main>
+
+</body>
+</html>

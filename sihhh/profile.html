@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Connect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add custom colors to tailwind config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mentor-teal': 'rgba(0, 128, 128, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="flex h-screen w-full">
+        <!-- Sidebar -->
+        <aside class="w-60 bg-teal-600 text-white flex flex-col h-screen">
+            <div class="p-4 text-xl font-bold">Mentor Connect</div>
+            <nav class="flex-1">
+                <a href="menteedashboard.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Dashboard</span>
+                </a>
+                <a href="MentorDiscovery.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Mentor</span>
+                </a>
+                <a href="Scheduler.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Schedule</span>
+                </a>
+                <a href="library.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Resources</span>
+                </a>
+                <a href="chat.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Chats</span>
+                </a>
+                <a href="community.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Community</span>
+                </a>
+                </a>
+            </nav>
+            <div class="mt-auto">
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Account Settings</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 bg-gray-50 ml-[200px] overflow-y-auto">
+            <!-- Header -->
+            <header class="bg-gray-100 p-6">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-3xl font-bold">Believe in Yourself</h1>
+                    <div class="flex items-center space-x-4">
+                        <img src="media/ai-generated-anime-boy-students-face-who-is-indian-light-brown-in-skin-tone-and-bit-chubby-and-heal-42388083.png" alt="Profile" class="w-[60px] h-[60px] rounded-full"/>
+                        <div>
+                            <h2 class="text-xl font-semibold flex items-center">
+                                Mohid Khan
+                            </h2>
+                            <div class="text-sm text-gray-600 space-x-4">
+                                <span>UX Designer</span>
+                                <span>San Francisco</span>
+                                <span>Join August 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Tabs -->
+            <div class="border-b px-6">
+                <nav class="flex space-x-4">
+                    <button class="px-4 py-2 text-mentor-teal border-b-2 border-mentor-teal">My Details</button>
+                        <a href="profile-settings.html"><button class="px-4 py-2 text-gray-500">Profile</button></a>
+                        <a href="rewards-profile.html"><button class="px-4 py-2 text-gray-500">Rewards</button></a>
+                </nav>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Left Column -->
+                    <div class="space-y-6">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold mb-2">About Me</h3>
+                            <textarea class="w-full h-24 border rounded-lg p-2" placeholder="Tell us about yourself..."></textarea>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold mb-2">Recent Messages</h3>
+                            <div class="space-y-4">
+                                <div class="border rounded-lg p-4">Mihir Panpatil : Good morning Sir</div>
+                                <div class="border rounded-lg p-4">Medhansh K : Can you share blockchain Roadmap</div>
+                                <div class="border rounded-lg p-4">Kusum Gond : Can you provide Course related to Fullstack.</div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold mb-2">Social Media</h3>
+                            <div class="space-y-2">
+                                <input type="text" class="w-full border rounded p-2" placeholder="LinkedIn URL"/>
+                                <input type="text" class="w-full border rounded p-2" placeholder="Twitter URL"/>
+                            </div>
+                        </div>
+                        <!-- Save Button -->
+                        <div class="flex justify-end">
+                            <button class="bg-mentor-teal text-white px-4 py-2 rounded">Save</button>
+                        </div>
+                    </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="font-semibold mb-2">Add Job Post</h3>
+        <textarea class="w-full h-64 border rounded-lg p-2" placeholder="Write your job post..."></textarea>
+        <div class="flex justify-between items-center mt-4">
+            <h4 class="font-semibold mb-2">Add Job link</h4>
+            <input type="url" class="border rounded p-2" />
+            <button class="bg-mentor-teal text-white px-4 py-2 rounded">Upload</button>
+        </div>
+        <div class="mt-4">
+            <h4 class="font-semibold mb-2">Select Domain</h4>
+            <div class="flex flex-wrap space-x-2">
+                <button class="bg-mentor-teal text-white px-4 py-2 rounded">IT</button>
+                <button class="bg-mentor-teal text-white px-4 py-2 rounded">Marketing</button>
+                <button class="bg-mentor-teal text-white px-4 py-2 rounded">Design</button>
+                <button class="bg-mentor-teal text-white px-4 py-2 rounded">Finance</button>
+                <button class="bg-mentor-teal text-white px-4 py-2 rounded">Education</button>
+            </div>
+            <div class="mt-4">
+                <h4 class="font-semibold mb-2">Select Type of job</h4>
+                <div class="flex flex-wrap space-x-2">
+                    <button class="bg-mentor-teal text-white px-4 py-2 rounded">Full-time</button>
+                    <button class="bg-mentor-teal text-white px-4 py-2 rounded">Part-time</button>
+                </div>
+                <div class="mt-4">
+                    <h4 class="font-semibold mb-2">Select mode of job</h4>
+                    <div class="flex flex-wrap space-x-2">
+                        <button class="bg-mentor-teal text-white px-4 py-2 rounded">Remote</button>
+                        <button class="bg-mentor-teal text-white px-4 py-2 rounded">Hybrid</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button id="openMenteeOverlay" class="bg-mentor-teal text-white px-4 py-2 rounded">Select Mentees</button>
+        </div>
+    </div>
+
+    <!-- Mentee Selection Overlay -->
+    <div id="menteeOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-4 rounded-lg shadow-lg w-1/2">
+            <h3 class="font-semibold mb-2">Select Mentees</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex items-center">
+                    <input type="checkbox" id="mentee1" class="mr-2">
+                    <label for="mentee1">Mentee 1</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="mentee2" class="mr-2">
+                    <label for="mentee2">Mentee 2</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="mentee3" class="mr-2">
+                    <label for="mentee3">Mentee 3</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="mentee4" class="mr-2">
+                    <label for="mentee4">Mentee 4</label>
+                </div>
+                <!-- Add more mentee tiles as needed -->
+            </div>
+            <div class="mt-4 flex justify-between">
+                <button id="saveMentees" class="bg-mentor-teal text-white px-4 py-2 rounded">Save</button>
+                <button id="closeMenteeOverlay" class="bg-gray-500 text-white px-4 py-2 rounded">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Open Mentee Overlay
+        document.getElementById('openMenteeOverlay').addEventListener('click', function() {
+            document.getElementById('menteeOverlay').classList.remove('hidden');
+        });
+
+        // Close Mentee Overlay
+        document.getElementById('closeMenteeOverlay').addEventListener('click', function() {
+            document.getElementById('menteeOverlay').classList.add('hidden');
+        });
+
+        // Save Mentees
+        document.getElementById('saveMentees').addEventListener('click', function() {
+            // Handle saving selected mentees here
+            alert('Mentees saved!');
+            document.getElementById('menteeOverlay').classList.add('hidden');
+        });
+    </script>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

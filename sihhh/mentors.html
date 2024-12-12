@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentors - Education Programme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#0D503C',
+                        'brand-light': '#E6F2EF'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <nav class="container mx-auto px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="/placeholder.svg?height=40&width=120" alt="Brand Logo" class="h-10">
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="Index.html" class="text-gray-700 hover:text-brand-green">Home</a>
+                <a href="#" class="text-gray-700 hover:text-brand-green">Mentors</a>
+                <a href="#" class="text-gray-700 hover:text-brand-green">About Us</a>
+                <a href="#" class="text-gray-700 hover:text-brand-green">Contact</a>
+                <button class="bg-brand-green text-white px-6 py-2 rounded-full hover:bg-opacity-90">
+                    Login
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-8 py-12">
+        <!-- Breadcrumb -->
+        <div class="flex items-center space-x-2 text-sm text-gray-600 mb-8">
+            <a href="#" class="hover:text-brand-green">Home</a>
+            <span>/</span>
+            <span class="text-brand-green">Mentors</span>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-4 mb-8">
+            <select class="px-4 py-2 border rounded-full text-gray-700 focus:outline-none focus:border-brand-green">
+                <option value="">Domain</option>
+                <option value="tech">Tech</option>
+                <option value="design">Design</option>
+                <option value="management">Management</option>
+                <option value="analysis">Analytics</option>
+            </select>
+            <select class="px-4 py-2 border rounded-full text-gray-700 focus:outline-none focus:border-brand-green">
+                <option value="">Experience Level</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="expert">Expert</option>
+            </select>
+            <select class="px-4 py-2 border rounded-full text-gray-700 focus:outline-none focus:border-brand-green">
+                <option value="">Price Range</option>
+                <option value="0-50">$0 - $50</option>
+                <option value="51-100">$51 - $100</option>
+                <option value="101+">$101+</option>
+            </select>
+        </div>
+
+        <!-- Mentors Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Mentor Card 1 -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <div class="relative">
+                    <img src="media/mentor-cover-img1.png" alt="Mentor" class="w-full h-48 object-cover">
+                    <div class="absolute top-4 right-4 bg-brand-green text-white px-3 py-1 rounded-full text-sm">
+                        $45/hr
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg mb-2">Sarah Johnson</h3>
+                    <p class="text-gray-600 text-sm mb-4">Professional Makeup Artist</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-gray-500">8 years experience</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-sm text-gray-500 ml-1">(4.9)</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Makeup</span>
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Bridal</span>
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">SFX</span>
+                    </div>
+                    <button class="w-full bg-brand-green text-white py-2 rounded-full hover:bg-opacity-90 transition-colors">
+                        Book Session
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mentor Card 2 -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <div class="relative">
+                    <img src="media/mentor-cover-img3.png" alt="Mentor" class="w-full h-48 object-cover">
+                    <div class="absolute top-4 right-4 bg-brand-green text-white px-3 py-1 rounded-full text-sm">
+                        $55/hr
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg mb-2">Michael Chen</h3>
+                    <p class="text-gray-600 text-sm mb-4">Hair Styling Expert</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-gray-500">12 years experience</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-sm text-gray-500 ml-1">(4.8)</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Styling</span>
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Color</span>
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Cut</span>
+                    </div>
+                    <button class="w-full bg-brand-green text-white py-2 rounded-full hover:bg-opacity-90 transition-colors">
+                        Book Session
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mentor Card 3 -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <div class="relative">
+                    <img src="media/mentor-cover-img4.png" alt="Mentor" class="w-full h-48 object-cover">
+                    <div class="absolute top-4 right-4 bg-brand-green text-white px-3 py-1 rounded-full text-sm">
+                        $35/hr
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg mb-2">Emily Rodriguez</h3>
+                    <p class="text-gray-600 text-sm mb-4">Nail Art Specialist</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-gray-500">5 years experience</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-sm text-gray-500 ml-1">(4.7)</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Nail Art</span>
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Acrylics</span>
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Gel</span>
+                    </div>
+                    <button class="w-full bg-brand-green text-white py-2 rounded-full hover:bg-opacity-90 transition-colors">
+                        Book Session
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mentor Card 4 -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <div class="relative">
+                    <img src="media/mentor-cover-img5.png" alt="Mentor" class="w-full h-48 object-cover">
+                    <div class="absolute top-4 right-4 bg-brand-green text-white px-3 py-1 rounded-full text-sm">
+                        $65/hr
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg mb-2">David Kim</h3>
+                    <p class="text-gray-600 text-sm mb-4">Skincare Expert</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-gray-500">15 years experience</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-sm text-gray-500 ml-1">(5.0)</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Skincare</span>
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Treatment</span>
+                        <span class="bg-brand-light text-brand-green px-3 py-1 rounded-full text-sm">Facial</span>
+                    </div>
+                    <button class="w-full bg-brand-green text-white py-2 rounded-full hover:bg-opacity-90 transition-colors">
+                        Book Session
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center mt-12 space-x-2">
+            <button class="px-4 py-2 border rounded-full text-gray-600 hover:border-brand-green hover:text-brand-green">
+                Previous
+            </button>
+            <button class="px-4 py-2 bg-brand-green text-white rounded-full">1</button>
+            <button class="px-4 py-2 border rounded-full text-gray-600 hover:border-brand-green hover:text-brand-green">2</button>
+            <button class="px-4 py-2 border rounded-full text-gray-600 hover:border-brand-green hover:text-brand-green">3</button>
+            <button class="px-4 py-2 border rounded-full text-gray-600 hover:border-brand-green hover:text-brand-green">
+                Next
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-green text-white mt-16">
+        <div class="container mx-auto px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <img src="/placeholder.svg?height=40&width=120" alt="Brand Logo" class="h-10">
+                    <p class="text-sm opacity-80">
+                        Empowering beauty professionals through quality education and training.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="#" class="hover:opacity-100">About Us</a></li>
+                        <li><a href="#" class="hover:opacity-100">Courses</a></li>
+                        <li><a href="#" class="hover:opacity-100">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li>contact@example.com</li>
+                        <li>+1 234 567 890</li>
+                        <li>123 Education Street</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:opacity-80">FB</a>
+                        <a href="#" class="hover:opacity-80">TW</a>
+                        <a href="#" class="hover:opacity-80">IG</a>
+                        <a href="#" class="hover:opacity-80">LI</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Connect - Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mentor-teal': 'rgba(34, 84, 85, 1)',
+                        'chat-bg': 'rgba(240, 255, 255, 1)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-screen flex overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-60 bg-teal-600 text-white flex flex-col h-screen">
+        <div class="p-4 text-xl font-bold">Mentor Connect</div>
+        <nav class="flex-1">
+            <a href="menteedashboard.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Dashboard</span>
+            </a>
+            <a href="MentorDiscovery.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Mentor</span>
+            </a>
+            <a href="Scheduler.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Schedule</span>
+            </a>
+            <a href="library.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Resources</span>
+            </a>
+            <a href="chat.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Chats</span>
+            </a>
+            <a href="community.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Community</span>
+            </a>
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <a href="profile-settings.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Account Settings</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col bg-chat-bg">
+        <!-- Header -->
+        <header class="h-16 px-6 flex items-center justify-between bg-white border-b">
+            <div class="flex items-center space-x-4">
+                <button class="p-2 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+                <h2 class="text-lg font-semibold">Mentor Chat</h2>
+            </div>
+            <div class="flex-1 max-w-xl mx-4">
+                <div class="relative">
+                    <input type="text" placeholder="Search" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-mentor-teal">
+                    <svg class="w-5 h-5 absolute right-3 top-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- Video Meet Button -->
+            <button id="startMeetButton" class="p-2 text-mentor-teal hover:bg-mentor-teal hover:text-white rounded-lg transition-colors mr-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Chat Area -->
+        <div class="flex-1 overflow-y-auto p-6" id="chatArea">
+            <h2 class="text-2xl font-semibold mb-4">Mentor Chat</h2>
+            <div class="space-y-6" id="messageList">
+                <div class="flex items-start space-x-4">
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-mentor-teal">Mentor: Jane Smith</span>
+                        <p class="text-gray-800">I recommend starting with the official documentation and then moving on to some project-based tutorials.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-mentor-teal">Mentee: Steve Smith</span>
+                        <p class="text-gray-800">I recommend starting with the official documentation and then moving on to some project-based tutorials.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-mentor-teal">Mentor: Jane Smith</span>
+                        <p class="text-gray-800">I recommend starting with the official documentation and then moving on to some project-based tutorials.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-mentor-teal">Mentee: Steve Smith</span>
+                        <p class="text-gray-800">I recommend starting with the official documentation and then moving on to some project-based tutorials.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Input -->
+        <div class="p-4 border-t bg-white">
+            <div class="flex items-center space-x-2">
+                <input type="text" 
+                    id="messageInput" 
+                    placeholder="Message to the mentor..." 
+                    class="flex-1 px-4 py-2 rounded-lg border focus:outline-none focus:border-mentor-teal">
+                <button id="sendButton" class="p-2 text-mentor-teal hover:bg-mentor-teal hover:text-white rounded-lg transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Video Meet Container -->
+        <div id="meet" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="relative bg-white rounded-lg shadow-xl" style="width: 800px; height: 600px;">
+                <button id="closeMeet" class="absolute right-2 top-2 z-10 p-2 bg-white rounded-full shadow-lg hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                <div id="jitsiContainer" class="w-full h-full rounded-lg overflow-hidden"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Jitsi Meet Integration
+        document.getElementById('startMeetButton').addEventListener('click', () => {
+            const meetContainer = document.getElementById('meet');
+            meetContainer.classList.remove('hidden');
+            
+            const domain = 'meet.jit.si';
+            const options = {
+                roomName: 'MentorConnect_' + Math.random().toString(36).substring(7),
+                width: '100%',
+                height: '100%',
+                parentNode: document.querySelector('#jitsiContainer'),
+                interfaceConfigOverwrite: {
+                    TOOLBAR_BUTTONS: [
+                        'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+                        'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+                        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+                        'videoquality', 'filmstrip', 'feedback', 'stats', 'shortcuts',
+                        'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone'
+                    ],
+                }
+            };
+
+            const api = new JitsiMeetExternalAPI(domain, options);
+
+            // Close meeting handler
+            document.getElementById('closeMeet').addEventListener('click', () => {
+                api.dispose();
+                meetContainer.classList.add('hidden');
+            });
+        });
+
+        // Send message functionality
+        document.getElementById('sendButton').addEventListener('click', function() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+
+            if (messageText) {
+                // Create a new message element
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'flex items-start space-x-4';
+                messageDiv.innerHTML = `
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-mentor-teal">You:</span>
+                        <p class="text-gray-800">${messageText}</p>
+                    </div>
+                `;
+
+                // Append the new message to the message list
+                document.getElementById('messageList').appendChild(messageDiv);
+
+                // Clear the input field
+                messageInput.value = '';
+
+                // Scroll to the bottom of the chat area
+                const chatArea = document.getElementById('chatArea');
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>

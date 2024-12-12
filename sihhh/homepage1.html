@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Connect Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <style>
+        .calendar-placeholder {
+            height: 200px; /* Adjust height as needed */
+        }
+        .job-tile {
+            border-radius: 12px;
+            padding: 16px;
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px; /* Space between tiles */
+        }
+        .job-container {
+            max-height: 300px; /* Set max height for scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen w-full">
+        <!-- Left Sidebar -->
+        <aside class="w-60 bg-teal-600 text-white flex flex-col h-screen">
+            <div class="p-4 text-xl font-bold">Mentor Connect</div>
+            <nav class="flex-1">
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Mentor</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Schedule</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Resources</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Chats</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Community</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>All Mentor</span>
+                </a>
+            </nav>
+            <div class="mt-auto">
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Account Settings</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Header -->
+            <header class="bg-white p-4 flex items-center justify-between border-b">
+                <h1 class="text-2xl font-semibold">Welcome, Merna!</h1>
+                <div class="flex items-center space-x-4">
+                    <input type="search" placeholder="Search" class="px-4 py-2 border rounded-lg w-96">
+                    <button class="p-2">🔔</button>
+                    <button class="p-2">👤</button>
+                </div>
+            </header>
+
+            <div class="p-6 space-y-6">
+                <!-- Join Club Section -->
+                <section class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-2xl font-bold mb-2">Get Involved – Join a Club Today!</h2>
+                    <p class="text-gray-600 mb-4">Explore your interests and meet like-minded students by joining one of our many clubs. Whether you're into sports, arts, or academics, there's a club for you!</p>
+                    <button class="bg-teal-600 text-white px-6 py-2 rounded-lg">Learn More</button>
+                </section>
+
+                <!-- Community Groups -->
+                <section>
+                    <h2 class="text-xl font-bold mb-4">Community Groups</h2>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold">Design Community Mumbai</h3>
+                            <p class="text-gray-600">12K+ Member</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold">Dribble Globals Group</h3>
+                            <p class="text-gray-600">12K+ Member</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold">Marketing Support Group</h3>
+                            <p class="text-gray-600">12K+ Member</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-semibold">Devops Community Mumbai</h3>
+                            <p class="text-gray-600">12K+ Member</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Courses -->
+                <section>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <img src="media/FullStack img.png" alt="Course" class="w-full h-32 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Full Stack Web Development</h3>
+                                <p class="text-sm text-gray-600 mb-4">Created by Albert James</p>
+                                <button class="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm">View Details</button>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <img src="media/FullStack img.png" alt="Course" class="w-full h-32 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Full Stack Web Development</h3>
+                                <p class="text-sm text-gray-600 mb-4">Created by Albert James</p>
+                                <button class="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm">View Details</button>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <img src="media/FullStack img.png" alt="Course" class="w-full h-32 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Full Stack Web Development</h3>
+                                <p class="text-sm text-gray-600 mb-4">Created by Albert James</p>
+                                <button class="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm">View Details</button>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <img src="media/FullStack img.png" alt="Course" class="w-full h-32 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Full Stack Web Development</h3>
+                                <p class="text-sm text-gray-600 mb-4">Created by Albert James</p>
+                                <button class="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm">View Details</button>
+                            </div>
+                        </div>
+                        <!-- Repeat for other courses -->
+                    </div>
+                </section>
+
+                <!-- Job Discovery Section -->
+                <section>
+                    <h2 class="text-xl font-bold mb-4">Job Discovery</h2>
+                    <div class="bg-white rounded-lg shadow p-4 job-container">
+                        <h3 class="font-semibold mb-2">Recommended Jobs</h3>
+                        <div class="overflow-y-auto max-h-60">
+                            <div class="job-tile">
+                                <h3 class="font-semibold">Company A</h3>
+                                <p class="text-gray-600">Job Title: Software Engineer</p>
+                                <p class="text-gray-600">Description: Develop and maintain software applications.</p>
+                                <button class="bg-teal-600 text-white px-4 py-2 rounded-lg mt-2">Apply</button>
+                            </div>
+                            <div class="job-tile">
+                                <h3 class="font-semibold">Company B</h3>
+                                <p class="text-gray-600">Job Title: Data Analyst</p>
+                                <p class="text-gray-600">Description: Analyze data to help make business decisions.</p>
+                                <button class="bg-teal-600 text-white px-4 py-2 rounded-lg mt-2">Apply</button>
+                            </div>
+                            <div class="job-tile">
+                                <h3 class="font-semibold">Company C</h3>
+                                <p class="text-gray-600">Job Title: UX Designer</p>
+                                <p class="text-gray-600">Description: Design user-friendly interfaces for applications.</p>
+                                <button class="bg-teal-600 text-white px-4 py-2 rounded-lg mt-2">Apply</button>
+                            </div>
+                            <!-- Add more job tiles as needed -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="w-60 bg-gray-50 border-l p-4">
+            <!-- Calendar -->
+            <div class="bg-white rounded-lg shadow p-4 mb-4">
+                <h2 class="font-semibold mb-4">January 2024</h2>
+                <div class="grid grid-cols-7 gap-1">
+                    <div class="text-center">Sun</div>
+                    <div class="text-center">Mon</div>
+                    <div class="text-center">Tue</div>
+                    <div class="text-center">Wed</div>
+                    <div class="text-center">Thu</div>
+                    <div class="text-center">Fri</div>
+                    <div class="text-center">Sat</div>
+                    <!-- Calendar Days -->
+                    <div class="text-center">1</div>
+                    <div class="text-center">2</div>
+                    <div class="text-center">3</div>
+                    <div class="text-center">4</div>
+                    <div class="text-center">5</div>
+                    <div class="text-center">6</div>
+                    <div class="text-center">7</div>
+                    <div class="text-center">8</div>
+                    <div class="text-center">9</div>
+                    <div class="text-center">10</div>
+                    <div class="text-center">11</div>
+                    <div class="text-center">12</div>
+                    <div class="text-center">13</div>
+                    <div class="text-center">14</div>
+                    <div class="text-center">15</div>
+                    <div class="text-center">16</div>
+                    <div class="text-center">17</div>
+                    <div class="text-center">18</div>
+                    <div class="text-center">19</div>
+                    <div class="text-center">20</div>
+                    <div class="text-center">21</div>
+                    <div class="text-center">22</div>
+                    <div class="text-center">23</div>
+                    <div class="text-center">24</div>
+                    <div class="text-center">25</div>
+                    <div class="text-center">26</div>
+                    <div class="text-center">27</div>
+                    <div class="text-center">28</div>
+                    <div class="text-center">29</div>
+                    <div class="text-center">30</div>
+                    <div class="text-center">31</div>
+                </div>
+            </div>
+
+            <!-- Today's Events -->
+            <div class="bg-white rounded-lg shadow p-4">
+                <h2 class="font-semibold mb-4">Today</h2>
+                <div class="space-y-4">
+                    <div class="bg-blue-50 p-3 rounded">
+                        <h3 class="font-medium">Element of design test</h3>
+                        <p class="text-sm text-gray-600">10:00 - 11:00</p>
+                    </div>
+                </div>
+                <button id="all-events" class="w-full mt-4 bg-teal-600 text-white py-2 rounded-lg">All Events</button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Jitsi Meet Integration
+        document.getElementById('all-events').addEventListener('click', function() {
+            const domain = "meet.jit.si";
+            const options = {
+                roomName: "MentorConnectRoom",
+                width: 800,
+                height: 600,
+                parentNode: document.querySelector('.calendar-placeholder'),
+                interfaceConfigOverwrite: { 
+                    filmStripOnly: false 
+                },
+                configOverwrite: {
+                    startWithVideoMuted: true
+                }
+            };
+            const api = new JitsiMeetExternalAPI(domain, options);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete Web Development Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mentor-teal': 'rgba(34, 84, 85, 1)',
+                        'chat-bg': 'rgba(240, 255, 255, 1)',
+                        'button-blue': 'rgba(61, 175, 249, 1)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-screen flex overflow-hidden bg-chat-bg">
+    <!-- Sidebar -->
+    <aside class="w-60 bg-teal-600 text-white flex flex-col h-screen">
+        <div class="p-4 text-xl font-bold">Mentor Connect</div>
+        <nav class="flex-1">
+            <a href="menteedashboard.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Dashboard</span>
+            </a>
+            <a href="MentorDiscovery.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Mentor</span>
+            </a>
+            <a href="Scheduler.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Schedule</span>
+            </a>
+            <a href="library.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Resources</span>
+            </a>
+            <a href="chat.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Chats</span>
+            </a>
+            <a href="community.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Community</span>
+            </a>
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <a href="profile-settings.html" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Account Settings</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 hover:bg-teal-700">
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col p-6 overflow-y-auto">
+        <!-- Search Bar -->
+        <div class="mb-4">
+            <input type="text" placeholder="Search..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+        </div>
+
+        <!-- Course Title and Instructor -->
+        <h2 class="text-2xl font-semibold mb-2">The Complete Web Development Course</h2>
+        <h3 class="text-lg text-gray-600 mb-4">Web Development</h3>
+
+        <!-- Video Player Section -->
+        <div class="mb-6">
+            <div class="w-full h-64 bg-gray-300 rounded mb-4"></div>
+            <button class="px-4 py-2 bg-button-blue text-white rounded-lg">Play</button>
+        </div>
+
+        <!-- Progress and Time -->
+        <div class="mb-4">
+            <span>2/5 | 4.4 min</span>
+        </div>
+
+        <!-- Course Program Section -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">The Courses Program</h3>
+            <ul class="space-y-2">
+                <li class="flex justify-between p-2 bg-white rounded-lg">
+                    <span>1. Welcome to this course</span>
+                </li>
+                <li class="flex justify-between p-2 bg-gray-100 rounded-lg">
+                    <span>2. Watch before you start</span>
+                </li>
+                <li class="flex justify-between p-2 bg-white rounded-lg">
+                    <span>3. Basic development theory</span>
+                </li>
+                <li class="flex justify-between p-2 bg-gray-100 rounded-lg">
+                    <span>4. Basic front-end fundamentals</span>
+                </li>
+                <li class="flex justify-between p-2 bg-white rounded-lg">
+                    <span>5. What is front-end development?</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- About this course -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">About this course</h3>
+            <p class="text-gray-600">Learn web design in 1 hour with 25+ simple-to-use rules and guidelines — tons of amazing web design resources included!</p>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Description</h3>
+            <p class="text-gray-600">Lorem ipsum dolor sit amet consectetur. Molestie pharetra gravida morbi eget. Diam quam non pretium malesuada. Elit porta aliquam cursus id. Fermentum adipiscing et nisi dignissim lectus ornare amet metus. Eget leo aliquet diam dictum et sit enim. Diam enim in eu rutrum est. Eu tristique euismod malesuada velit amet tellus. Ornare viverra dignissim odio magna dui fermentum non scelerisque scelerisque. Non pellentesque commodo ut sagittis felis.</p>
+            <p class="text-gray-600">Aliquam pharetra a urna varius proin quis. Diam amet blandit ullamcorper diam lectus at eget. Erat molestie purus et vitae lectus aenean in cursus. Arcu gravida tellus purus ultricies tristique. Ac turpis aliquam consectetur sit eras.</p>
+        </div>
+
+        <!-- This Course Includes -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">This Course Includes</h3>
+            <ul class="space-y-2">
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>1.3 Hours on-demand video</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>35 Quizzes</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>7 Design Exercises</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>Lectures: 19</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>48 Articles</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>Captions: Yes</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>120 Download Resources</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>Video: 1.5 total hours</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>Access on Mobile</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-green-500">✔</span>
+                    <span>Language: English</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Find Project -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Find Project</h3>
+            <div class="flex items-center space-x-2">
+                <span>0 / 3</span>
+                <span>4.4 min</span>
+            </div>
+        </div>
+
+        <!-- Featured Courses -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Featured Courses</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h4 class="text-lg font-semibold mb-2">Development for Beginners</h4>
+                    <p class="text-gray-600">The Fender Acoustic Guitar is the best choice for both beginners and professionals offering a great sound.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h4 class="text-lg font-semibold mb-2">Development for Beginners</h4>
+                    <p class="text-gray-600">The Fender Acoustic Guitar is the best choice for both beginners and professionals offering a great sound.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h4 class="text-lg font-semibold mb-2">Development for Beginners</h4>
+                    <p class="text-gray-600">The Fender Acoustic Guitar is the best choice for both beginners and professionals offering a great sound.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upgrade Now Button -->
+        <div class="mb-8">
+            <button class="px-4 py-2 bg-button-blue text-white rounded-lg">Upgrade Now</button>
+        </div>
+    </main>
+</body>
+</html>
